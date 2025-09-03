@@ -44,8 +44,13 @@
 
   .container-flex {
     display:flex;
-    flex-wrap: wrap;
     justify-content:center;
+    gap:20px;
+  }
+
+  .column {
+    display:flex;
+    flex-direction:column;
     gap:20px;
   }
 
@@ -74,6 +79,21 @@
     align-self:flex-end;
   }
 
+  .btn-enviar {
+    margin-top:10px;
+    background-color:#28a745;
+    color:white;
+    border:none;
+  }
+
+  .btn-enviar:hover {
+    background-color:#218838;
+  }
+
+  input, select {
+    margin-bottom:5px;
+  }
+
 </style>
 </head>
 <body>
@@ -92,53 +112,53 @@
 </nav>
 
 <div class="container-flex">
-  <!-- Mis multas -->
-  <div class="panel-card">
-    <h2>Mis Multas</h2>
-    <p>Mira tus multas.</p>
-    <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+  <!-- Columna izquierda -->
+  <div class="column">
+    <div class="panel-card">
+      <h2>Mis Multas</h2>
+      <p>Mira tus multas.</p>
+      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+    </div>
+
+    <div class="panel-card">
+      <h2>Mis Arrestos</h2>
+      <p>Mira tus arrestos.</p>
+      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+    </div>
+
+    <div class="panel-card">
+      <h2>Registrar Vehículo</h2>
+      <p>Registra un vehículo.</p>
+      <form>
+        <input type="text" placeholder="Marca" class="form-control">
+        <input type="text" placeholder="Modelo" class="form-control">
+        <input type="text" placeholder="Color" class="form-control">
+        <input type="text" placeholder="Matrícula" class="form-control">
+        <input type="file" class="form-control">
+        <button type="submit" class="btn btn-enviar btn-block">Enviar</button>
+      </form>
+    </div>
   </div>
 
-  <!-- Mis arrestos -->
-  <div class="panel-card">
-    <h2>Mis Arrestos</h2>
-    <p>Mira tus arrestos.</p>
-    <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
-  </div>
+  <!-- Columna derecha -->
+  <div class="column">
+    <div class="panel-card">
+      <h2>Mis Propiedades</h2>
+      <p>Mira tus propiedades.</p>
+      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+    </div>
 
-  <!-- Mis propiedades -->
-  <div class="panel-card">
-    <h2>Mis Propiedades</h2>
-    <p>Mira tus propiedades.</p>
-    <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
-  </div>
+    <div class="panel-card">
+      <h2>Mis Empresas</h2>
+      <p>Mira tus empresas.</p>
+      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+    </div>
 
-  <!-- Mis empresas -->
-  <div class="panel-card">
-    <h2>Mis Empresas</h2>
-    <p>Mira tus empresas.</p>
-    <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
-  </div>
-
-  <!-- Registrar vehículo -->
-  <div class="panel-card">
-    <h2>Registrar Vehículo</h2>
-    <p>Registra un vehículo.</p>
-    <form>
-      <input type="text" placeholder="Marca" class="form-control mb-2">
-      <input type="text" placeholder="Modelo" class="form-control mb-2">
-      <input type="text" placeholder="Color" class="form-control mb-2">
-      <input type="text" placeholder="Matrícula" class="form-control mb-2">
-      <input type="file" class="form-control mb-2">
-      <button type="submit" class="btn btn-primary btn-continuar">Registrar</button>
-    </form>
-  </div>
-
-  <!-- Mis vehículos -->
-  <div class="panel-card">
-    <h2>Mis Vehículos</h2>
-    <p>Comprueba tus vehículos registrados.</p>
-    <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+    <div class="panel-card">
+      <h2>Mis Vehículos</h2>
+      <p>Comprueba tus vehículos registrados.</p>
+      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+    </div>
   </div>
 </div>
 
