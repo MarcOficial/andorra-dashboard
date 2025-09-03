@@ -12,88 +12,47 @@
     padding:20px;
     background:#f5f5f5;
   }
+  header { text-align:center; margin-bottom:20px; }
+  h1 { color:#2c3e50; }
 
-  header {
-    text-align:center;
-    margin-bottom:20px;
-  }
+  .container-flex { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
+  .column { display:flex; flex-direction:column; gap:20px; }
 
-  h1 {
-    color:#2c3e50;
-  }
-
-  nav {
-    text-align:center;
-    margin-bottom:20px;
-  }
-
-  nav a {
-    display:inline-block;
-    margin:5px;
-    padding:10px 20px;
-    text-decoration:none;
-    background:#3498db;
-    color:white;
-    border-radius:5px;
-    font-weight:bold;
-  }
-
-  nav a:hover {
-    background:#2980b9;
-  }
-
-  .container-flex {
-    display:flex;
-    justify-content:center;
-    gap:20px;
-  }
-
-  .column {
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-  }
-
-  .panel-card {
-    width: 350px !important;
-    height: 240.73px !important;
-    max-width: none !important;
-    background:#ecf0f1;
+  .option-card {
+    width:350px;
+    height:240.73px;
+    background:#fff;
+    border-radius: 1rem;
     padding:15px;
-    border-radius:10px;
     box-shadow:0 0 5px rgba(0,0,0,0.1);
-    overflow:auto;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor:pointer;
+  }
+  .option-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+  }
+  .option-card h2 { margin-top:0; color:#2c3e50; font-size:1.2rem; }
+
+  .btn-primary {
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-primary:hover {
+    background-color: #0d6efdcc;
+    transform: scale(1.05);
   }
 
-  .panel-card h2 {
-    margin-top:0;
-    color:#2c3e50;
-    font-size:1.2rem;
+  /* 🌙 Modo oscuro automático */
+  @media (prefers-color-scheme: dark) {
+    body { background-color: #121212; color: #eaeaea; }
+    .option-card { background-color: #1e1e1e; color: #eaeaea; }
+    h1 { color:#f1f1f1; }
+    .btn-primary { background-color: #1a73e8; border:none; }
+    .btn-primary:hover { background-color:#1669c1; }
   }
-
-  .btn-continuar {
-    margin-top:10px;
-    align-self:flex-end;
-  }
-
-  .btn-enviar {
-    margin-top:10px;
-    background-color:#28a745;
-    color:white;
-    border:none;
-  }
-
-  .btn-enviar:hover {
-    background-color:#218838;
-  }
-
-  input, select {
-    margin-bottom:5px;
-  }
-
 </style>
 </head>
 <body>
@@ -103,61 +62,42 @@
   <p>Mira tu información personal</p>
 </header>
 
-<nav>
-  <a href="index.html">Inicio</a>
-  <a href="#">Panel Policial</a>
-  <a href="#">Panel Médicos</a>
-  <a href="#">Panel Empresas</a>
-  <a href="#">Panel Bomberos</a>
-</nav>
-
 <div class="container-flex">
   <!-- Columna izquierda -->
   <div class="column">
-    <div class="panel-card">
+    <div class="option-card">
       <h2>Mis Multas</h2>
       <p>Mira tus multas.</p>
-      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+      <a href="multas.html" class="btn btn-primary">Continuar</a>
     </div>
-
-    <div class="panel-card">
+    <div class="option-card">
       <h2>Mis Arrestos</h2>
       <p>Mira tus arrestos.</p>
-      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+      <a href="arrestos.html" class="btn btn-primary">Continuar</a>
     </div>
-
-    <div class="panel-card">
+    <div class="option-card">
       <h2>Registrar Vehículo</h2>
       <p>Registra un vehículo.</p>
-      <form>
-        <input type="text" placeholder="Marca" class="form-control">
-        <input type="text" placeholder="Modelo" class="form-control">
-        <input type="text" placeholder="Color" class="form-control">
-        <input type="text" placeholder="Matrícula" class="form-control">
-        <input type="file" class="form-control">
-        <button type="submit" class="btn btn-enviar btn-block">Enviar</button>
-      </form>
+      <a href="registrar.html" class="btn btn-primary">Continuar</a>
     </div>
   </div>
 
   <!-- Columna derecha -->
   <div class="column">
-    <div class="panel-card">
+    <div class="option-card">
       <h2>Mis Propiedades</h2>
       <p>Mira tus propiedades.</p>
-      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+      <a href="propiedades.html" class="btn btn-primary">Continuar</a>
     </div>
-
-    <div class="panel-card">
+    <div class="option-card">
       <h2>Mis Empresas</h2>
       <p>Mira tus empresas.</p>
-      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+      <a href="empresas.html" class="btn btn-primary">Continuar</a>
     </div>
-
-    <div class="panel-card">
+    <div class="option-card">
       <h2>Mis Vehículos</h2>
       <p>Comprueba tus vehículos registrados.</p>
-      <a href="#" class="btn btn-primary btn-continuar">Continuar</a>
+      <a href="vehiculos.html" class="btn btn-primary">Continuar</a>
     </div>
   </div>
 </div>
