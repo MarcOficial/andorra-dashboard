@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Andorra RP - Panel Principal</title>
-<!-- Bootstrap opcional -->
+<title>Andorra RP - Dashboard</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
   body {
@@ -28,7 +27,6 @@
     margin-top: 5px;
   }
 
-  /* Contenedor flex para las columnas */
   .container-flex {
     display: flex;
     justify-content: center;
@@ -42,7 +40,6 @@
     gap: 20px;
   }
 
-  /* Paneles con tamaño fijo */
   .option-card {
     width: 350px !important;
     height: 240.73px !important;
@@ -52,12 +49,20 @@
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .option-card h2 {
     margin-top: 0;
     color: #2c3e50;
     font-size: 1.2rem;
+  }
+
+  .btn-continuar {
+    margin-top: 10px;
+    align-self: flex-end;
   }
 
   nav {
@@ -79,6 +84,7 @@
   nav a:hover {
     background: #2980b9;
   }
+
 </style>
 </head>
 <body>
@@ -105,14 +111,17 @@
     <div class="option-card">
       <h2>Carpeta Ciudadana</h2>
       <p>Mira tus datos registrados.</p>
+      <a href="ciudadana.html" class="btn btn-primary btn-continuar">Continuar</a>
     </div>
     <div class="option-card">
       <h2>Panel Médicos</h2>
       <p>Acceso para médicos, consulta historiales y registra diagnósticos o tratamientos.</p>
+      <a href="medicos.html" class="btn btn-primary btn-continuar">Continuar</a>
     </div>
     <div class="option-card">
       <h2>Panel Empresas</h2>
       <p>Acceso para empresas, emite facturas y mira tu plantilla.</p>
+      <a href="empresas.html" class="btn btn-primary btn-continuar">Continuar</a>
     </div>
   </div>
 
@@ -121,14 +130,17 @@
     <div class="option-card">
       <h2>Panel Policial</h2>
       <p>Solo policías, mira los datos de otra persona, o registra multas, arrestos, etc.</p>
+      <a href="policial.html" class="btn btn-primary btn-continuar">Continuar</a>
     </div>
     <div class="option-card">
       <h2>Panel Admins</h2>
       <p>Acceso para administradores, administra el servidor desde la web.</p>
+      <a href="admins.html" class="btn btn-primary btn-continuar">Continuar</a>
     </div>
     <div class="option-card">
       <h2>Panel Bomberos</h2>
       <p>Acceso para bomberos, usar el panel para bomberos.</p>
+      <a href="bomberos.html" class="btn btn-primary btn-continuar">Continuar</a>
     </div>
   </div>
 </div>
