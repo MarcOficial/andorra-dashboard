@@ -2,157 +2,34 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andorra RP Dashboard</title>
+  <title>⛰️ Andorra RP - Inicio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css">
-
-  <style>
-    .option-card {
-      border-radius: 1rem;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .option-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.25);
-    }
-    .btn-primary {
-      transition: all 0.2s ease-in-out;
-    }
-    .btn-primary:hover {
-      background-color: #0d6efdcc;
-      transform: scale(1.05);
-    }
-    .card-text {
-      color: #555;
-      font-weight: 500;
-    }
-    .banner-card h5 {
-      color: #0d6efd;
-    }
-
-    /* 🌙 Modo oscuro */
-    @media (prefers-color-scheme: dark) {
-      body { background-color: #121212; color: #eaeaea; }
-      .banner-card, .option-card { background-color: #1e1e1e; color: #eaeaea; }
-      .card-text { color: #bbb; }
-      .banner-card h5 { color: #4ea8ff; }
-      .btn-primary { background-color: #1a73e8; border: none; }
-      .btn-primary:hover { background-color: #1669c1; }
-    }
-  </style>
 </head>
 <body>
-
   <!-- Header -->
-  <header>
-    <nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold fs-4 text-dark" href="index.html">⛰️ Andorra RP</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto me-3">
-            <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="ciudadana.html">Carpeta Ciudadana</a></li>
-            <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="#">Panel Policial</a></li>
-            <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="#">Panel Médicos</a></li>
-            <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="#">Panel Empresas</a></li>
-            <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="#">Panel Bomberos</a></li>
-          </ul>
-        </div>
+  <nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4 text-dark" href="index.html">⛰️ Andorra RP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="ciudadana.html">Carpeta Ciudadana</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-policial.html">Panel Policial</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-medicos.html">Panel Médicos</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-empresas.html">Panel Empresas</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-bomberos.html">Panel Bomberos</a></li>
+        </ul>
       </div>
-    </nav>
-  </header>
-
-  <div class="container-fluid my-4 px-2">
-    <div class="row g-3 align-items-start">
-
-
-      <!-- Paneles centrales -->
-      <div class="col-12 col-lg-6 px-1">
-        <div class="text-center mb-4">
-          <h1 class="fw-bold">Bienvenido marcoficial23</h1>
-          <h5 class="text-muted">¿Qué deseas hacer hoy?</h5>
-        </div>
-
-        <div class="row justify-content-center g-3">
-          <!-- Carpeta ciudadana -->
-          <div class="col-12 col-lg-6 d-flex justify-content-center">
-            <div class="card shadow-lg h-100 option-card" style="width: 100%; max-width: 38rem;">
-              <div class="card-body py-4 text-center">
-                <h4 class="card-title fw-bold mb-3">Carpeta ciudadana</h4>
-                <p class="card-text mb-4">Mira tus datos registrados.</p>
-                <a href="ciudadana.html" class="btn btn-primary btn-lg px-4">Continuar</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel policial -->
-          <div class="col-12 col-lg-6 d-flex justify-content-center">
-            <div class="card shadow-lg h-100 option-card" style="width: 100%; max-width: 38rem;">
-              <div class="card-body py-4 text-center">
-                <h4 class="card-title fw-bold mb-3">Panel policial</h4>
-                <p class="card-text mb-4">Solo policías, mira los datos de otra persona, o registra multas, arrestos, etc.</p>
-                <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel médicos -->
-          <div class="col-12 col-lg-6 d-flex justify-content-center">
-            <div class="card shadow-lg h-100 option-card" style="width: 100%; max-width: 38rem;">
-              <div class="card-body py-4 text-center">
-                <h4 class="card-title fw-bold mb-3">Panel médicos</h4>
-                <p class="card-text mb-4">Acceso para médicos, consulta historiales y registra diagnósticos o tratamientos.</p>
-                <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel admins -->
-          <div class="col-12 col-lg-6 d-flex justify-content-center">
-            <div class="card shadow-lg h-100 option-card" style="width: 100%; max-width: 38rem;">
-              <div class="card-body py-4 text-center">
-                <h4 class="card-title fw-bold mb-3">Panel admins</h4>
-                <p class="card-text mb-4">Acceso para administradores, administra el servidor desde la web.</p>
-                <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel empresas -->
-          <div class="col-12 col-lg-6 d-flex justify-content-center">
-            <div class="card shadow-lg h-100 option-card" style="width: 100%; max-width: 38rem;">
-              <div class="card-body py-4 text-center">
-                <h4 class="card-title fw-bold mb-3">Panel empresas</h4>
-                <p class="card-text mb-4">Acceso para empresas, emite facturas y mira tu plantilla.</p>
-                <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel bomberos -->
-          <div class="col-12 col-lg-6 d-flex justify-content-center">
-            <div class="card shadow-lg h-100 option-card" style="width: 100%; max-width: 38rem;">
-              <div class="card-body py-4 text-center">
-                <h4 class="card-title fw-bold mb-3">Panel bomberos</h4>
-                <p class="card-text mb-4">Acceso para bomberos, usar el panel para bomberos.</p>
-                <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-
     </div>
-  </div>
+  </nav>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Contenido -->
+  <div class="container text-center mt-5">
+    <h1 class="fw-bold">Bienvenido a Andorra RP</h1>
+    <p class="lead">Selecciona un panel en el menú superior para empezar.</p>
+  </div>
 </body>
 </html>
