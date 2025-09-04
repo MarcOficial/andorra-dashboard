@@ -3,22 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Andorra RP - Inicio de sesión</title>
-<link href="style.css" rel="stylesheet">
+<title>Andorra RP - Iniciar sesión</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-  <div class="card shadow-lg p-5" style="max-width: 400px; width: 100%; border-radius: 1rem;">
-    <h2 class="fw-bold text-center mb-4">Andorra RP</h2>
-    <p class="text-center text-muted mb-4">Inicia sesión para acceder al dashboard</p>
-    <div class="d-grid">
-      <a href="dashboard.html" class="btn btn-primary btn-lg">Iniciar sesión</a>
+<div class="container d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <div class="card text-center" style="max-width: 400px; width:100%;">
+        <h2 class="mb-4">Bienvenido a Andorra RP</h2>
+        <p>Inicia sesión para acceder a tu Dashboard</p>
+        <a href="dashboard.html" class="btn btn-primary mt-3">Iniciar sesión</a>
     </div>
-  </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function aplicarModo(){
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+        document.body.classList.add('modo-oscuro');
+    } else {
+        document.body.classList.remove('modo-oscuro');
+    }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+aplicarModo();
+</script>
 </body>
 </html>
