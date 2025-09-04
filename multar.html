@@ -1,304 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andorra RP Dashboard</title>
-    <link href="/css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css">
-    
-    <style>
-        /* Estilos navbar y links */
-        .navbar-nav .nav-link {
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-        .navbar-nav .nav-link:hover {
-            color: #5865F2; /* Azul Discord */
-            transform: scale(1.05);
-        }
-        .btn-discord {
-            background-color: #5865F2;
-            color: white;
-            border-radius: 2rem;
-            padding: 0.5rem 1.5rem;
-            font-weight: 600;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-        .btn-discord:hover {
-            background-color: #4752C4;
-            transform: scale(1.05);
-            color: white;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multar ciudadano</title>
+<link href="style.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css">
+</head>
+<body>
 
-        /* Modo oscuro automático */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212;
-                color: #ffffff;
-            }
-            nav.navbar {
-                background-color: #1f1f1f !important;
-            }
-            .navbar-nav .nav-link {
-                color: #ffffff !important;
-            }
-            .navbar-nav .nav-link:hover {
-                color: #5865F2 !important;
-            }
-            .btn-discord {
-                background-color: #5865F2;
-            }
-            .btn-discord:hover {
-                background-color: #4752C4;
-            }
-        }
+<header>
+<nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4 text-dark" href="dashboard.html">⛰️ Andorra RP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="carpeta-ciudadana.html">Carpeta ciudadana</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-policial.html">Panel policial</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-medicos.html">Panel médicos</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-empresas.html">Panel empresas</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-bomberos.html">Panel bomberos</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
 
-        /* Clase para modo oscuro vía JS */
-        body.modo-oscuro {
-            background-color: #121212;
-            color: #ffffff;
-        }
-        body.modo-oscuro nav.navbar {
-            background-color: #1f1f1f !important;
-        }
-        body.modo-oscuro .navbar-nav .nav-link {
-            color: #ffffff !important;
-        }
-        body.modo-oscuro .navbar-nav .nav-link:hover {
-            color: #5865F2 !important;
-        }
-    </style>
-<style type="text/css">.lf-progress {
-  -webkit-appearance: none;
-  -moz-apperance: none;
-  width: 100%;
-  /* margin: 0 10px; */
-  height: 4px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.lf-progress:focus {
-  outline: none;
-  border: none;
-}
-.lf-progress::-moz-range-track {
-  cursor: pointer;
-  background: none;
-  border: none;
-  outline: none;
-}
-.lf-progress::-webkit-slider-thumb {
-  -webkit-appearance: none !important;
-  height: 13px;
-  width: 13px;
-  border: 0;
-  border-radius: 50%;
-  background: #0fccce;
-  cursor: pointer;
-}
-.lf-progress::-moz-range-thumb {
-  -moz-appearance: none !important;
-  height: 13px;
-  width: 13px;
-  border: 0;
-  border-radius: 50%;
-  background: #0fccce;
-  cursor: pointer;
-}
-.lf-progress::-ms-track {
-  width: 100%;
-  height: 3px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-.lf-progress::-ms-fill-lower {
-  background: #ccc;
-  border-radius: 3px;
-}
-.lf-progress::-ms-fill-upper {
-  background: #ccc;
-  border-radius: 3px;
-}
-.lf-progress::-ms-thumb {
-  border: 0;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  background: #0fccce;
-  cursor: pointer;
-}
-.lf-progress:focus::-ms-fill-lower {
-  background: #ccc;
-}
-.lf-progress:focus::-ms-fill-upper {
-  background: #ccc;
-}
-.lf-player-container :focus {
-  outline: 0;
-}
-.lf-popover {
-  position: relative;
-}
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h1 class="fw-bold">Bienvenido marcoficial23</h1>
+    <h5 class="text-muted">Envía multas a los ciudadanos</h5>
+  </div>
 
-.lf-popover-content {
-  display: inline-block;
-  position: absolute;
-  opacity: 1;
-  visibility: visible;
-  transform: translate(0, -10px);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-}
+  <div class="card shadow-lg mx-auto p-4 p-md-5" style="max-width: 600px; border-radius: 1rem;">
+    <form action="/enviar-multa" method="POST">
+      <div class="mb-4">
+        <label for="userSelect" class="form-label fw-semibold">Selecciona un usuario</label>
+        <select id="userSelect" name="userSelect" class="selectpicker form-control shadow-sm" data-live-search="true" title="Selecciona un usuario" required>
+          <option value="123456">usuario1</option>
+          <option value="234567">usuario2</option>
+          <option value="345678">usuario3</option>
+        </select>
+      </div>
 
-.lf-popover-content.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transform: translate(0, 0px);
-}
+      <div class="mb-4">
+        <label for="cantidad" class="form-label fw-semibold">Cantidad</label>
+        <input type="number" class="form-control shadow-sm" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
+      </div>
 
-.lf-player-btn-container {
-  display: flex;
-  align-items: center;
-}
-.lf-player-btn {
-  cursor: pointer;
-  fill: #999;
-  width: 14px;
-}
+      <div class="mb-4">
+        <label for="razon" class="form-label fw-semibold">Razón</label>
+        <input type="text" class="form-control shadow-sm" id="razon" name="razon" placeholder="Escribe la razón" required>
+      </div>
 
-.lf-player-btn.active {
-  fill: #555;
-}
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg px-5">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-.lf-popover {
-  position: relative;
-}
-
-.lf-popover-content {
-  display: inline-block;
-  position: absolute;
-  background-color: #ffffff;
-  opacity: 1;
-
-  transform: translate(0, -10px);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-  padding: 10px;
-}
-
-.lf-popover-content.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transform: translate(0, 0px);
-}
-
-.lf-arrow {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  bottom: -9px;
-  border-style: solid;
-  border-width: 10px 10px 0px 10px;
-}
-
-.lf-left-align,
-.lf-left-align .lfarrow {
-  left: 0;
-  right: unset;
-}
-
-.lf-right-align,
-.lf-right-align .lf-arrow {
-  right: 0;
-  left: unset;
-}
-
-.lf-text-input {
-  border: 1px #ccc solid;
-  border-radius: 5px;
-  padding: 3px;
-  width: 60px;
-  margin: 0;
-}
-
-.lf-color-picker {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 90px;
-}
-
-.lf-color-selectors {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.lf-color-component {
-  display: flex;
-  flex-direction: row;
-  font-size: 12px;
-  align-items: center;
-  justify-content: center;
-}
-
-.lf-color-component strong {
-  width: 40px;
-}
-
-.lf-color-component input[type='range'] {
-  margin: 0 0 0 10px;
-}
-
-.lf-color-component input[type='number'] {
-  width: 50px;
-  margin: 0 0 0 10px;
-}
-
-.lf-color-preview {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 5px;
-}
-
-.lf-preview {
-  height: 60px;
-  width: 60px;
-}
-
-.lf-popover-snapshot {
-  width: 150px;
-}
-.lf-popover-snapshot h5 {
-  margin: 5px 0 10px 0;
-  font-size: 0.75rem;
-}
-.lf-popover-snapshot a {
-  display: block;
-  text-decoration: none;
-}
-.lf-popover-snapshot a:before {
-  content: '⥼';
-  margin-right: 5px;
-}
-.lf-popover-snapshot .lf-note {
-  display: block;
-  margin-top: 10px;
-  color: #999;
-}
-.lf-player-controls > div {
-  margin-right: 5px;
-  margin-left: 5px;
-}
-.lf-player-controls > div:first-child {
-  margin-left: 0px;
-}
-.lf-player-controls > div:last-child {
-  margin-right: 0px;
-}
-</style></head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>$('#userSelect').selectpicker();</script>
+</body>
+</html>
