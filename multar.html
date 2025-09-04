@@ -3,70 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multar ciudadano</title>
-<link href="style.css" rel="stylesheet">
+<title>Enviar Multa - Andorra RP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css">
 </head>
 <body>
-
 <header>
-<nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold fs-4 text-dark" href="dashboard.html">⛰️ Andorra RP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto me-3">
-        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="carpeta-ciudadana.html">Carpeta ciudadana</a></li>
-        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-policial.html">Panel policial</a></li>
-        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-medicos.html">Panel médicos</a></li>
-        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-empresas.html">Panel empresas</a></li>
-        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="panel-bomberos.html">Panel bomberos</a></li>
-      </ul>
+<nav class="navbar navbar-expand-lg shadow p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Andorra RP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana.html">Carpeta Ciudadana</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 </header>
 
 <div class="container my-5">
-  <div class="text-center mb-4">
-    <h1 class="fw-bold">Bienvenido marcoficial23</h1>
-    <h5 class="text-muted">Envía multas a los ciudadanos</h5>
-  </div>
+    <div class="text-center mb-4">
+        <h1>Enviar Multa</h1>
+        <h5 class="text-muted">Envía multas a los usuarios</h5>
+    </div>
 
-  <div class="card shadow-lg mx-auto p-4 p-md-5" style="max-width: 600px; border-radius: 1rem;">
-    <form action="/enviar-multa" method="POST">
-      <div class="mb-4">
-        <label for="userSelect" class="form-label fw-semibold">Selecciona un usuario</label>
-        <select id="userSelect" name="userSelect" class="selectpicker form-control shadow-sm" data-live-search="true" title="Selecciona un usuario" required>
-          <option value="123456">usuario1</option>
-          <option value="234567">usuario2</option>
-          <option value="345678">usuario3</option>
-        </select>
-      </div>
-
-      <div class="mb-4">
-        <label for="cantidad" class="form-label fw-semibold">Cantidad</label>
-        <input type="number" class="form-control shadow-sm" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
-      </div>
-
-      <div class="mb-4">
-        <label for="razon" class="form-label fw-semibold">Razón</label>
-        <input type="text" class="form-control shadow-sm" id="razon" name="razon" placeholder="Escribe la razón" required>
-      </div>
-
-      <div class="text-center">
-        <button type="submit" class="btn btn-primary btn-lg px-5">Enviar</button>
-      </div>
-    </form>
-  </div>
+    <div class="card mx-auto" style="max-width:600px;">
+        <form action="/enviar-multa" method="POST">
+            <div class="mb-3">
+                <label for="userSelect" class="form-label">Selecciona un usuario</label>
+                <select id="userSelect" name="userSelect" class="selectpicker form-control" data-live-search="true" required>
+                    <option value="1341054240973394027">erik14._</option>
+                    <option value="856608687240773673">iiker25</option>
+                    <option value="1139494470665125908">futur_bomber</option>
+                    <!-- Agrega más opciones según tu lista -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
+            </div>
+            <div class="mb-3">
+                <label for="razon" class="form-label">Razón</label>
+                <input type="text" class="form-control" id="razon" name="razon" placeholder="Escribe la razón" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-<script>$('#userSelect').selectpicker();</script>
+<script>
+$(document).ready(function(){
+    $('#userSelect').selectpicker();
+});
+function aplicarModo(){
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+        document.body.classList.add('modo-oscuro');
+    } else {
+        document.body.classList.remove('modo-oscuro');
+    }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+aplicarModo();
+</script>
 </body>
 </html>
