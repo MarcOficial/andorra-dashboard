@@ -4,13 +4,195 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Andorra Dashboard</title>
-  <link href="style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    nav.navbar {
+      background-color: #5865F2;
+      color: white;
+      transition: 0.3s;
+    }
+    nav.navbar a.navbar-brand {
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+    nav.navbar a.nav-link {
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav.navbar a.nav-link:hover {
+      color: #FFD700;
+    }
+
+    /* Botón Discord */
+    .btn-discord {
+      background-color: #7289DA;
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      border-radius: 2rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn-discord:hover {
+      background-color: #5b6eae;
+      transform: scale(1.05);
+    }
+
+    /* Hero */
+    .hero {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(to right, #5865F2, #4752C4);
+      color: white;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      animation: slideUp 1s ease-in-out;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: slideUp 1.2s ease-in-out;
+    }
+
+    /* Features */
+    .features {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: #fff;
+    }
+    .features h2 {
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .feature-card {
+      background-color: #f0f0f0;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 1rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeInUp 1s ease-in-out;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    /* CTA */
+    .cta-section {
+      background: #5865F2;
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      animation: slideUp 1s ease-in-out;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .features h2 {
+        font-size: 2rem;
+      }
+      .cta-section h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>Andorra Dashboard</h1>
-    <p>Inicia sesión con Discord para acceder a tu panel.</p>
-    <a class="btn-discord" href="https://discord.com/api/oauth2/authorize?client_id=1403379795420516485&redirect_uri=https%3A%2F%2Fandorra-dashboard.netlify.app%2Fdashboard.html&response_type=code&scope=identify%20guilds">Iniciar sesión con Discord</a>
-  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg px-5">
+    <a class="navbar-brand" href="#">Andorra RP</a>
+    <div class="ms-auto">
+      <a class="btn-discord" href="https://discord.com/api/oauth2/authorize?client_id=1403379795420516485&redirect_uri=https%3A%2F%2Fandorra-dashboard.netlify.app%2Fdashboard.html&response_type=code&scope=identify%20guilds">Iniciar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Andorra RP</h1>
+    <p>Vive el mejor rol como nunca antes hayas imaginado</p>
+    <a class="btn-discord" href="https://discord.com/api/oauth2/authorize?client_id=1403379795420516485&redirect_uri=https%3A%2F%2Fandorra-dashboard.netlify.app%2Fdashboard.html&response_type=code&scope=identify%20guilds">Entrar al Dashboard</a>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Por qué elegir Andorra</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <h4>Roles Diversos</h4>
+          <p>Escoge entre múltiples roles y experiencias de rol únicas.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <h4>Economía Realista</h4>
+          <p>Participa en la economía del servidor y gestiona tus negocios.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <h4>Eventos Únicos</h4>
+          <p>Disfruta de eventos especiales que transforman tu experiencia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2>Listo para escribir tu historia?</h2>
+    <p>Únete a nuestra comunidad en Discord y comienza a vivir tu rol.</p>
+    <a class="btn-discord" href="https://discord.com/invite/E5qTk5jA3S">Entrar al Discord</a>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
