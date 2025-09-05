@@ -1,62 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andorra Dashboard</title>
-  <link href="style.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Andorra RP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold fs-4 text-dark" href="/dashboard.html">⛰️ Andorra Dashboard</a>
-        <ul class="navbar-nav ms-auto me-3">
-          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/carpeta-ciudadana.html">Carpeta ciudadana</a></li>
-          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-policial.html">Panel policial</a></li>
-          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-medicos.html">Panel médicos</a></li>
-          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-empresas.html">Panel empresas</a></li>
-          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-bomberos.html">Panel bomberos</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+<header>
+<nav class="navbar navbar-expand-lg shadow p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Andorra RP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana.html">Carpeta Ciudadana</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
 
-  <div class="container my-5">
-    <div class="text-center mb-4">
-      <h1 class="fw-bold">Bienvenido marcoficial23</h1>
-      <h5 class="text-muted">¿Qué deseas hacer hoy?</h5>
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1>Bienvenido <span id="discord-username">Usuario</span></h1>
+        <h5 class="text-muted">Tu Dashboard</h5>
     </div>
 
-    <div class="row text-center">
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg p-4">Carpeta ciudadana<br>Mira tus datos registrados.</div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg p-4">Panel policial<br>Solo policías, registra multas, arrestos, etc.</div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg p-4">Panel médicos<br>Consulta historiales y registra diagnósticos.</div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg p-4">Panel admins<br>Accede y administra el servidor desde la web.</div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg p-4">Panel empresas<br>Emite facturas y mira tu plantilla.</div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-lg p-4">Panel bomberos<br>Usa el panel para bomberos.</div>
-      </div>
+    <div class="card-grid">
+        <div class="card text-center">
+            <h4>Carpeta Ciudadana</h4>
+            <p>Mira tus datos personales y registrados</p>
+        </div>
+        <div class="card text-center">
+            <h4>Panel Policial</h4>
+            <p>Accede a multas, arrestos y registros policiales</p>
+        </div>
+        <div class="card text-center">
+            <h4>Panel Médicos</h4>
+            <p>Consulta historiales y registra diagnósticos</p>
+        </div>
+        <div class="card text-center">
+            <h4>Panel Empresas</h4>
+            <p>Administra tu empresa y revisa plantilla</p>
+        </div>
+        <div class="card text-center">
+            <h4>Panel Bomberos</h4>
+            <p>Acceso al panel para bomberos</p>
+        </div>
     </div>
-  </div>
+</div>
 
-  <script>
-    // Quitar el code de la URL para que no se vea
-    if (window.history.replaceState) {
-      const url = new URL(window.location);
-      url.search = '';
-      window.history.replaceState(null, null, url);
-    }
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Simulación de usuario de Discord
+  const discordUser = "MarcOficial23"; // reemplazar con OAuth real luego
+  document.getElementById("discord-username").textContent = discordUser;
+
+  function aplicarModo(){
+      if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+          document.body.classList.add('modo-oscuro');
+      } else {
+          document.body.classList.remove('modo-oscuro');
+      }
+  }
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+  aplicarModo();
+</script>
 </body>
 </html>
