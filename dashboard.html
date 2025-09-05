@@ -4,97 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Andorra Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f5f6fa;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .container {
-      margin-top: 4rem;
-    }
-    .card {
-      border: none;
-      border-radius: 1rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
-  </style>
+  <link href="style.css" rel="stylesheet">
 </head>
 <body>
+  <header>
+    <nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-4 text-dark" href="/dashboard.html">⛰️ Andorra Dashboard</a>
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/carpeta-ciudadana.html">Carpeta ciudadana</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-policial.html">Panel policial</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-medicos.html">Panel médicos</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-empresas.html">Panel empresas</a></li>
+          <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="/panel-bomberos.html">Panel bomberos</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-  <div class="container text-center">
-    <h1 class="fw-bold">Bienvenido</h1>
-    <p class="text-muted">¿Qué deseas hacer hoy?</p>
-
-    <div class="row mt-4">
-      <div class="col-md-4 mb-3">
-        <div class="card p-4">
-          <h5 class="fw-bold">Carpeta Ciudadana</h5>
-          <p>Mira tus datos registrados.</p>
-          <a href="carpeta-ciudadana.html" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card p-4">
-          <h5 class="fw-bold">Panel Policial</h5>
-          <p>Acceso exclusivo para policías: multas, arrestos, etc.</p>
-          <a href="panel-policial.html" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card p-4">
-          <h5 class="fw-bold">Panel Médicos</h5>
-          <p>Consulta historiales y registra diagnósticos.</p>
-          <a href="panel-medicos.html" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card p-4">
-          <h5 class="fw-bold">Panel Admins</h5>
-          <p>Administra el servidor desde la web.</p>
-          <a href="panel-admins.html" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card p-4">
-          <h5 class="fw-bold">Panel Empresas</h5>
-          <p>Gestiona facturas y tu plantilla.</p>
-          <a href="panel-empresas.html" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <div class="card p-4">
-          <h5 class="fw-bold">Panel Bomberos</h5>
-          <p>Herramientas para bomberos.</p>
-          <a href="panel-bomberos.html" class="btn btn-primary">Entrar</a>
-        </div>
-      </div>
+  <div class="container my-5">
+    <div class="text-center mb-4">
+      <h1 class="fw-bold">Bienvenido marcoficial23</h1>
+      <h5 class="text-muted">¿Qué deseas hacer hoy?</h5>
     </div>
 
-    <div id="user-info" class="mt-5"></div>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-4">Carpeta ciudadana<br>Mira tus datos registrados.</div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-4">Panel policial<br>Solo policías, registra multas, arrestos, etc.</div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-4">Panel médicos<br>Consulta historiales y registra diagnósticos.</div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-4">Panel admins<br>Accede y administra el servidor desde la web.</div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-4">Panel empresas<br>Emite facturas y mira tu plantilla.</div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg p-4">Panel bomberos<br>Usa el panel para bomberos.</div>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Capturar el code que devuelve Discord
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
-    if (code) {
-      document.getElementById("user-info").innerHTML = `
-        <div class="alert alert-success">
-          Código recibido de Discord: <strong>${code}</strong>
-        </div>
-      `;
-    } else {
-      document.getElementById("user-info").innerHTML = `
-        <div class="alert alert-warning">
-          No se recibió código de Discord. Vuelve a iniciar sesión.
-        </div>
-      `;
+    // Quitar el code de la URL para que no se vea
+    if (window.history.replaceState) {
+      const url = new URL(window.location);
+      url.search = '';
+      window.history.replaceState(null, null, url);
     }
   </script>
 </body>
