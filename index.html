@@ -3,60 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andorra Dashboard - Iniciar sesión</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(135deg, #5865F2, #23272A);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .login-box {
-      background: #2f3136;
-      padding: 2rem;
-      border-radius: 1rem;
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    }
-    .login-box h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #ffffff;
-    }
-    .btn-discord {
-      background-color: #5865F2;
-      color: white;
-      border-radius: 2rem;
-      padding: 0.8rem 1.5rem;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 1rem;
-      transition: 0.3s;
-    }
-    .btn-discord:hover {
-      background-color: #4752C4;
-      transform: scale(1.05);
-      color: white;
-    }
-  </style>
+  <title>Andorra Dashboard</title>
+  <link href="style.css" rel="stylesheet">
 </head>
 <body>
-
-  <div class="login-box">
+  <div class="login-container">
     <h1>Andorra Dashboard</h1>
-    <p>Inicia sesión con Discord para continuar</p>
-    <a class="btn-discord" 
-       href="https://discord.com/api/oauth2/authorize?client_id=1403379795420516485&redirect_uri=https%3A%2F%2Fandorra-dashboard.netlify.app%2Fdashboard.html&response_type=code&scope=identify">
-       Iniciar sesión con Discord
-    </a>
+    <p>Inicia sesión con Discord para acceder a tu panel.</p>
+    <a class="btn-discord" href="https://discord.com/api/oauth2/authorize?client_id=1403379795420516485&redirect_uri=https%3A%2F%2Fandorra-dashboard.netlify.app%2Fdashboard.html&response_type=code&scope=identify%20guilds">Iniciar sesión con Discord</a>
   </div>
-
 </body>
 </html>
