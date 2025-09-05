@@ -7,10 +7,232 @@
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <div class="login-container">
-    <h1>Andorra Dashboard</h1>
-    <p>Inicia sesión con Discord para acceder a tu panel.</p>
-    <a class="btn-discord" href="https://discord.com/api/oauth2/authorize?client_id=1403379795420516485&redirect_uri=https%3A%2F%2Fandorra-dashboard.netlify.app%2Fdashboard.html&response_type=code&scope=identify%20guilds">Iniciar sesión con Discord</a>
-  </div>
+    <header>
+    <nav class="navbar navbar-expand-lg shadow" style="background-color: #ffffff; padding: 1rem 0;">
+        <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-4 text-dark" href="/home">⛰️ Andorra RP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto me-3">
+                <li class="nav-item">
+                    <a class="nav-link text-dark fw-semibold" href="/carpeta-ciudadana">Carpeta Ciudadana</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark fw-semibold" href="/panel-policial">Panel Policial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark fw-semibold" href="/panel-medicos">Panel Médicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark fw-semibold" href="/panel-empresas">Panel Empresas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark fw-semibold" href="/panel-bomberos">Panel Bomberos</a>
+                </li>
+            </ul>   
+        </div>
+        </div>
+    </nav>
+    </header>
+
+    
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand fw-bold fs-4" href="#">⛰️ Andorra RP</a>
+      <a href="/login" class="btn btn-discord">Iniciar Sesión</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero d-flex align-items-center justify-content-center text-center">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1 class="display-2 fw-bold mb-3 animate-fade title-hero">Andorra RP</h1>
+      <p class="lead mb-4 animate-fade-delay text-white">Vive el rol como nunca antes en el corazón de los Pirineos</p>
+      <a href="https://discord.gg/E5qTk5jA3S" class="btn btn-lg btn-discord animate-fade-delay2">Únete ahora</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features text-center py-5">
+    <div class="container">
+      <h2 class="mb-5 fw-bold animate-fade">¿Por qué elegir Andorra RP?</h2>
+      <div class="row justify-content-center g-4">
+        <div class="col-md-4">
+          <div class="card feature-card shadow animate-up">
+            <h4 class="mb-3">🎭 Rol inmersivo</h4>
+            <p>Reglas claras, administración activa y una experiencia pensada para la inmersión total.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card shadow animate-up-delay">
+            <h4 class="mb-3">💰 Economía viva</h4>
+            <p>Negocios legales e ilegales, propiedades únicas y un sistema económico dinámico.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card shadow animate-up-delay2">
+            <h4 class="mb-3">🤝 Comunidad vibrante</h4>
+            <p>Eventos semanales, facciones activas y un entorno social acogedor para todos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta text-center py-5" style="background:linear-gradient(135deg, #0d0d0d, #2c2c2c); color:white;">
+    <div class="container">
+      <h2 class="fw-bold mb-4 animate-fade">¿Listo para escribir tu historia en Andorra?</h2>
+      <a href="https://discord.gg/E5qTk5jA3S" class="btn btn-lg btn-discord animate-fade-delay">Únete a Discord</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-4" style="background:#111; color:#aaa;">
+    <p>© 2025 Andorra RP - Todos los derechos reservados</p>
+  </footer>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #111;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Hero overlay */
+    .overlay {
+      position: absolute;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .hero {
+      position: relative;
+      min-height:100vh; 
+      background: url('/images/andorra-night.jpg') center/cover no-repeat;
+      color: white;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    /* Título principal */
+    .title-hero {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.9), 
+                   0 0 20px rgba(0,0,0,0.8);
+      letter-spacing: 2px;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(0,0,0,0.6); }
+      to   { text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 40px rgba(255,255,255,0.8); }
+    }
+
+    /* Botón Discord */
+    .btn-discord {
+      background-color: #5865F2;
+      color: white;
+      border-radius: 2rem;
+      padding: 0.8rem 2.2rem;
+      font-size: 1.1rem;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .btn-discord:hover {
+      background-color: #4752C4;
+      transform: scale(1.05);
+      color: white;
+    }
+
+    /* Features */
+    .feature-card {
+      background:#262626;
+      color:white;
+      border-radius:1rem;
+      padding:2rem;
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background:#333;
+    }
+
+    /* Animaciones */
+    .animate-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+    }
+    .animate-fade-delay {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards 0.3s;
+    }
+    .animate-fade-delay2 {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards 0.6s;
+    }
+    .animate-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease forwards;
+    }
+    .animate-up-delay {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease forwards 0.3s;
+    }
+    .animate-up-delay2 {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease forwards 0.6s;
+    }
+    @keyframes fadeIn {
+      to {opacity:1; transform:translateY(0);}
+    }
+    @keyframes fadeInUp {
+      to {opacity:1; transform:translateY(0);}
+    }
+
+    /* Footer */
+    footer {
+      background:#111; 
+      color:#aaa;
+      text-align:center; 
+      padding:1.5rem;
+    }
+  </style>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Detecta modo oscuro y aplica clase en tiempo real
+        function aplicarModo() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('modo-oscuro');
+            } else {
+                document.body.classList.remove('modo-oscuro');
+            }
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+        aplicarModo();
+    </script>
+
 </body>
 </html>
