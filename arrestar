@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enviar Multa - Andorra RP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/css/bootstrap-select.min.css">
+</head>
+<body>
+<header>
+<nav class="navbar navbar-expand-lg shadow p-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Andorra RP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana.html">Carpeta Ciudadana</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
+                <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1>Enviar Multa</h1>
+        <h5 class="text-muted">Envía multas a los usuarios</h5>
+    </div>
+
+    <div class="card mx-auto" style="max-width:600px;">
+        <form action="/arrestarform" method="POST" enctype="multipart/form-data">
+
+      <!-- Selección de usuario -->
+      <div class="mb-3">
+        <label for="userSelect" class="form-label fw-semibold">Selecciona un usuario</label>
+        <select id="userSelect" name="userSelect" class="selectpicker form-control" data-live-search="true" title="Selecciona un usuario" required="">
+            <option value="1341054240973394027" data-tokens="erik14._">
+              erik14._
+            </option>
+            <option value="856608687240773673" data-tokens="iiker25">
+              iiker25
+            </option>
+            <option value="1286967233074958379" data-tokens="lostigres451pro">
+              lostigres451pro
+            </option>
+            <option value="1139494470665125908" data-tokens="futur_bomber">
+              futur_bomber
+            </option>
+            <option value="927336171623837807" data-tokens="mando2207">
+              mando2207
+            </option>
+            <option value="1216166212896034866" data-tokens="jose036081">
+              jose036081
+            </option>
+            <option value="1190001532167528511" data-tokens="pablo03867">
+              pablo03867
+            </option>
+            <option value="1370277289157201991" data-tokens="kaytipo2.0">
+              kaytipo2.0
+            </option>
+            <option value="1407859739106344991" data-tokens="tsogosvlugo0811">
+              tsogosvlugo0811
+            </option>
+            <option value="864237142954737705" data-tokens="br_r.">
+              br_r.
+            </option>
+            <option value="1327885094664540204" data-tokens="ibonprogame_2">
+              ibonprogame_2
+            </option>
+            <option value="1262741526920826891" data-tokens="parra991_07107">
+              parra991_07107
+            </option>
+            <option value="1008060445380333608" data-tokens="simbonix_19047">
+              simbonix_19047
+            </option>
+            <option value="1152238363198373908" data-tokens="cristiann0081">
+              cristiann0081
+            </option>
+            <option value="1051820766678745138" data-tokens="m.a.r.t.i.">
+              m.a.r.t.i.
+            </option>
+            <option value="1179105627344208014" data-tokens="alexxo0592">
+              alexxo0592
+            </option>
+            <option value="1240717261237649558" data-tokens="david_fresh">
+              david_fresh
+            </option>
+            <option value="1404921807215005777" data-tokens="ganster.__">
+              ganster.__
+            </option>
+            <option value="1244737405576020110" data-tokens="emi053526">
+              emi053526
+            </option>
+            <option value="1388171144473083936" data-tokens="thexxuz">
+              thexxuz
+            </option>
+            <option value="1198365120611483650" data-tokens="antoniojesus0210">
+              antoniojesus0210
+            </option>
+            <option value="863490464258457610" data-tokens="pepitol99">
+              pepitol99
+            </option>
+            <option value="1198665171208519683" data-tokens="rafa_28296">
+              rafa_28296
+            </option>
+            <option value="1002224611007680572" data-tokens="paketez">
+              paketez
+            </option>
+            <option value="1102288809112117430" data-tokens="joelitoh13">
+              joelitoh13
+            </option>
+            <option value="1394639946643411048" data-tokens="marcoficial23">
+              marcoficial23
+            </option>
+            <option value="933789147125125120" data-tokens="mateo163733">
+              mateo163733
+            </option>
+            <option value="1165224926354087986" data-tokens="gonzalo.joy_2002">
+              gonzalo.joy_2002
+            </option>
+            <option value="1211053669018107924" data-tokens="paneterancio">
+              paneterancio
+            </option>
+            <option value="1364192111259553813" data-tokens="jordi.jeje">
+              jordi.jeje
+            </option>
+            <option value="1029476776059084922" data-tokens="urban.cat">
+              urban.cat
+            </option>
+            <option value="1247546066295853096" data-tokens="cristoooo0408">
+              cristoooo0408
+            </option>
+        </select>
+      </div>
+
+      <!-- Tiempo en prisión -->
+      <div class="mb-3">
+        <label for="tiempo" class="form-label fw-semibold">Tiempo en prisión</label>
+        <input type="number" class="form-control shadow-sm" id="tiempo" name="tiempo" placeholder="Ingresa la cantidad" required="">
+      </div>
+
+      <!-- Cargos -->
+      <div class="mb-3">
+        <label for="Cargos" class="form-label fw-semibold">Cargos</label>
+        <input type="text" class="form-control shadow-sm" id="Cargos" name="Cargos" placeholder="Escribe la razón" required="">
+      </div>
+
+      <!-- Input de archivo -->
+      <div class="mb-4">
+        <label for="imagen" class="form-label fw-semibold">Subir archivo</label>
+        <input class="form-control form-control-sm shadow-sm" id="imagen" type="file" name="imagen">
+      </div>
+
+      <!-- Botón de envío -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg px-5">Enviar</button>
+      </div>
+
+    </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#userSelect').selectpicker();
+});
+function aplicarModo(){
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+        document.body.classList.add('modo-oscuro');
+    } else {
+        document.body.classList.remove('modo-oscuro');
+    }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+aplicarModo();
+</script>
+</body>
+</html>
