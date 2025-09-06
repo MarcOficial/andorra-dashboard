@@ -1,119 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Admin - Andorra RP</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin - Andorra RP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-<nav class="navbar navbar-expand-lg shadow p-3">
+  <nav class="navbar navbar-expand-lg shadow p-3">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Andorra RP</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana.html">Carpeta Ciudadana</a></li>
-                <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
-                <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
-                <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
-                <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
-            </ul>
-        </div>
+      <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Andorra RP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana.html">Carpeta Ciudadana</a></li>
+          <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
+          <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
+          <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
+          <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
 </header>
 
-<div class="container my-5">
-    <div class="text-center mb-5">
-        <h1>Bienvenido marcoficial23</h1>
-        <h5 class="text-muted">Usa el panel admin</h5>
+<div class="container my-5" id="contenido">
+  <div class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
     </div>
-
-    <div class="container">
-  <div class="row justify-content-center g-4">
-
-       <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Crear Empresa</h4>
-          <p class="card-text mb-4">Crea una empresa para un usuario.</p>
-          <a href="/crear-empresa.html" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mis arrestos -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Crear banda</h4>
-          <p class="card-text mb-4">Crea una banda para un usuario.</p>
-          <a href="/mis-arrestos" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mis propiedades -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Ver empresas</h4>
-          <p class="card-text mb-4">Mira todas las empresas del servidor.</p>
-          <a href="/mis-propiedades" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mis empresas -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Ver Bandas</h4>
-          <p class="card-text mb-4">Mira todas las bandas del seervidor.</p>
-          <a href="/mis-empresas" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-    <!-- Registrar vehiculo -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Borrar Multa</h4>
-          <p class="card-text mb-4">Borra una Multa.</p>
-          <a href="/registrar-vehiculo" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-    <!-- Mis vehciulos -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Mis vehiculos</h4>
-          <p class="card-text mb-4">Comprueba tus vehiculos registrados.</p>
-          <a href="/mis-vehiculos" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-
+    <p class="mt-3">Verificando permisos...</p>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-function aplicarModo(){
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-        document.body.classList.add('modo-oscuro');
+const GUILD_ID = "1401538045467164782"; // 👈 pon aquí el ID del servidor
+const ROLE_ID_FUNDADOR = "1401538045467164785"; // 👈 pon aquí el ID del rol fundador
+
+async function verificarPermisos() {
+  const token = localStorage.getItem("discord_token");
+  const usuario = JSON.parse(localStorage.getItem("discord_user"));
+
+  if (!token || !usuario) {
+    document.getElementById("contenido").innerHTML = `
+      <div class="alert alert-danger text-center">
+        ⚠️ Error: No se detectó sesión activa.
+      </div>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://discord.com/api/v10/guilds/${GUILD_ID}/members/${usuario.id}`, {
+      headers: { "Authorization": \`Bearer \${token}\` }
+    });
+
+    if (!res.ok) throw new Error("No se pudo comprobar roles.");
+    const data = await res.json();
+
+    if (data.roles && data.roles.includes(ROLE_ID_FUNDADOR)) {
+      // ✅ Usuario con rol fundador → mostrar panel
+      document.getElementById("contenido").innerHTML = `
+        <div class="text-center mb-5">
+          <h1>Bienvenido ${usuario.username}</h1>
+          <h5 class="text-muted">Usa el panel admin</h5>
+        </div>
+        <div class="container">
+          <div class="row justify-content-center g-4">
+            <!-- Crear Empresa -->
+            <div class="col-12 col-sm-6 col-md-5">
+              <div class="card option-card text-center shadow-lg h-100">
+                <div class="card-body py-4">
+                  <h4 class="card-title fw-bold mb-3">Crear Empresa</h4>
+                  <p class="card-text mb-4">Crea una empresa para un usuario.</p>
+                  <a href="crear-empresa.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+                </div>
+              </div>
+            </div>
+            <!-- Crear Banda -->
+            <div class="col-12 col-sm-6 col-md-5">
+              <div class="card option-card text-center shadow-lg h-100">
+                <div class="card-body py-4">
+                  <h4 class="card-title fw-bold mb-3">Crear banda</h4>
+                  <p class="card-text mb-4">Crea una banda para un usuario.</p>
+                  <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
+                </div>
+              </div>
+            </div>
+            <!-- Ver Empresas -->
+            <div class="col-12 col-sm-6 col-md-5">
+              <div class="card option-card text-center shadow-lg h-100">
+                <div class="card-body py-4">
+                  <h4 class="card-title fw-bold mb-3">Ver empresas</h4>
+                  <p class="card-text mb-4">Mira todas las empresas del servidor.</p>
+                  <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
+                </div>
+              </div>
+            </div>
+            <!-- Ver Bandas -->
+            <div class="col-12 col-sm-6 col-md-5">
+              <div class="card option-card text-center shadow-lg h-100">
+                <div class="card-body py-4">
+                  <h4 class="card-title fw-bold mb-3">Ver Bandas</h4>
+                  <p class="card-text mb-4">Mira todas las bandas del servidor.</p>
+                  <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
+                </div>
+              </div>
+            </div>
+            <!-- Borrar Multa -->
+            <div class="col-12 col-sm-6 col-md-5">
+              <div class="card option-card text-center shadow-lg h-100">
+                <div class="card-body py-4">
+                  <h4 class="card-title fw-bold mb-3">Borrar Multa</h4>
+                  <p class="card-text mb-4">Borra una Multa.</p>
+                  <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
+                </div>
+              </div>
+            </div>
+            <!-- Borrar Arresto -->
+            <div class="col-12 col-sm-6 col-md-5">
+              <div class="card option-card text-center shadow-lg h-100">
+                <div class="card-body py-4">
+                  <h4 class="card-title fw-bold mb-3">Borrar Arresto</h4>
+                  <p class="card-text mb-4">Borra un arresto.</p>
+                  <a href="#" class="btn btn-primary btn-lg px-4">Continuar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
     } else {
-        document.body.classList.remove('modo-oscuro');
+      // ❌ No tiene rol → acceso denegado
+      document.getElementById("contenido").innerHTML = `
+        <div class="d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 60vh;">
+          <div style="font-size: 4rem;">⛔</div>
+          <h2 class="fw-bold mt-3">ACCESO DENEGADO</h2>
+          <p class="text-muted">No tienes permisos para acceder a esta página.</p>
+        </div>`;
     }
+  } catch (err) {
+    document.getElementById("contenido").innerHTML = `
+      <div class="alert alert-danger text-center">
+        ⚠️ Error verificando permisos.
+      </div>`;
+  }
 }
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
-aplicarModo();
+
+verificarPermisos();
 </script>
 </body>
 </html>
