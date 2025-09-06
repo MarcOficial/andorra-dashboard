@@ -1,3 +1,12 @@
+Vale, lo que quieres es un dashboard en dos columnas:
+
+En la columna izquierda siempre vayan: Carpeta Ciudadana, Panel Policial y Panel Médicos.
+
+En la columna derecha el resto de paneles distribuidos en dos filas.
+
+
+Aquí te dejo el código ya organizado:
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,8 +30,8 @@
                 <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
                 <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
                 <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
-                <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>     
-
+                <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>    
+                <li class="nav-item"><a class="nav-link" href="panel-admins.html">Panel Admin</a></li>    
             </ul>
         </div>
     </div>
@@ -35,67 +44,74 @@
         <h5 class="text-muted">¿Qué deseas hacer hoy?</h5>
     </div>
 
-    <!-- Mis multas -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Carpeta Ciudadana</h4>
-          <p class="card-text mb-4">Mira tus datos personales y registrados.</p>
-          <a href="/carpeta-ciudadana.html" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
+    <div class="row">
+        <!-- Columna izquierda -->
+        <div class="col-md-6 d-flex flex-column gap-4">
+            <!-- Carpeta Ciudadana -->
+            <div class="card option-card text-center shadow-lg h-100">
+              <div class="card-body py-4">
+                <h4 class="card-title fw-bold mb-3">Carpeta Ciudadana</h4>
+                <p class="card-text mb-4">Mira tus datos personales y registrados.</p>
+                <a href="/carpeta-ciudadana.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+              </div>
+            </div>
 
-    <!-- Mis propiedades -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Panel Policial</h4>
-          <p class="card-text mb-4">Accede a multas, arrestos y registros policiales</p>
-          <a href="/panel-policial.html" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
+            <!-- Panel Policial -->
+            <div class="card option-card text-center shadow-lg h-100">
+              <div class="card-body py-4">
+                <h4 class="card-title fw-bold mb-3">Panel Policial</h4>
+                <p class="card-text mb-4">Accede a multas, arrestos y registros policiales.</p>
+                <a href="/panel-policial.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+              </div>
+            </div>
 
-    <!-- Mis empresas -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Panel Médicos</h4>
-          <p class="card-text mb-4">Mira tus empresas.</p>
-          <a href="/panel.medicos.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+            <!-- Panel Médicos -->
+            <div class="card option-card text-center shadow-lg h-100">
+              <div class="card-body py-4">
+                <h4 class="card-title fw-bold mb-3">Panel Médicos</h4>
+                <p class="card-text mb-4">Revisa historiales médicos y reportes sanitarios.</p>
+                <a href="/panel-medicos.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+              </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- Registrar vehiculo -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Panel Empresas</h4>
-          <p class="card-text mb-4">Administra tu empresa y revisa plantilla</p>
-          <a href="/panel.empresas.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+
+        <!-- Columna derecha -->
+        <div class="col-md-6 d-grid gap-4">
+            <div class="row g-4">
+                <!-- Panel Empresas -->
+                <div class="col-12 col-sm-6">
+                  <div class="card option-card text-center shadow-lg h-100">
+                    <div class="card-body py-4">
+                      <h4 class="card-title fw-bold mb-3">Panel Empresas</h4>
+                      <p class="card-text mb-4">Administra tu empresa y revisa plantilla.</p>
+                      <a href="/panel-empresas.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel Bomberos -->
+                <div class="col-12 col-sm-6">
+                  <div class="card option-card text-center shadow-lg h-100">
+                    <div class="card-body py-4">
+                      <h4 class="card-title fw-bold mb-3">Panel Bomberos</h4>
+                      <p class="card-text mb-4">Acceso al panel para bomberos.</p>
+                      <a href="/panel-bomberos.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panel Admin -->
+                <div class="col-12">
+                  <div class="card option-card text-center shadow-lg h-100">
+                    <div class="card-body py-4">
+                      <h4 class="card-title fw-bold mb-3">Panel Admin</h4>
+                      <p class="card-text mb-4">Acceso para administradores, administra el servidor desde la web.</p>
+                      <a href="/panel-admins.html" class="btn btn-primary btn-lg px-4">Continuar</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- Mis vehciulos -->
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Panel Bomberos</h4>
-          <p class="card-text mb-4">Acceso al panel para bomberos</p>
-          <a href="/panel.bomeros.html" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 col-md-5">
-      <div class="card option-card text-center shadow-lg h-100">
-        <div class="card-body py-4">
-          <h4 class="card-title fw-bold mb-3">Panel Admin</h4>
-          <p class="card-text mb-4">Acceso para administradores, administra el servidor desde la web.</p>
-          <a href="/panel-admins.html" class="btn btn-primary btn-lg px-4">Continuar</a>
-        </div>
-      </div>
-    </div>
     </div>
 </div>
 
