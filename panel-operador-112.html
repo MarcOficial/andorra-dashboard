@@ -1,137 +1,279 @@
-<!-- Modal NOT SET -->
-<div class="modal fade" id="unidadModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modificar identificador: NOT SET</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Operador 112 - Spanish City RP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f8f9fa; }
+    .sidebar {
+      background: #ffffff;
+      border-right: 1px solid #dee2e6;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+    .main-content {
+      background: #ffffff;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+    .section-title {
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+    .bottom-panel {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 350px;
+      background: #fff;
+      border-top: 1px solid #dee2e6;
+      border-right: 1px solid #dee2e6;
+      display: none;
+      height: 300px;
+      overflow-y: auto;
+      z-index: 1050;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar con botón NOT SET -->
+  <nav class="navbar navbar-light bg-light shadow-sm">
+    <div class="container-fluid justify-content-between">
+      <span class="navbar-brand mb-0 h1">📞 Panel Operador 112</span>
+      <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#unidadModal">NOT SET</button>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar izquierda -->
+      <div class="col-md-4 sidebar p-3">
+        <h5 class="section-title">Unidades Activas</h5>
+        <ul class="list-group mb-3" id="unidadesActivas">
+          <li class="list-group-item">🚓 Unidad 21 - Disponible</li>
+          <li class="list-group-item">🚒 Unidad 5 - En ruta</li>
+        </ul>
+
+        <h5 class="section-title">Grupo de Unidades</h5>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">Grupo Alfa</li>
+          <li class="list-group-item">Grupo Bravo</li>
+        </ul>
+
+        <h5 class="section-title">Llamadas Activas</h5>
+        <ul class="list-group mb-3" id="llamadasActivas">
+          <li class="list-group-item">#1001 - Incendio en vivienda</li>
+          <li class="list-group-item">#1002 - Accidente de tráfico</li>
+        </ul>
+
+        <!-- Botón de Registros -->
+        <div class="position-absolute bottom-0 start-0 p-3">
+          <button class="btn btn-secondary w-100" onclick="toggleBottomPanel()">📂 Registros</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <form id="unidadForm" class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label">Número de unidad</label>
-            <input type="text" class="form-control" id="numeroUnidad">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombreUnidad">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Rango</label>
-            <input type="text" class="form-control" id="rangoUnidad">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Estatus</label>
-            <select class="form-select" id="estatusUnidad">
-              <option>DISPONIBLE</option>
-              <option>OCUPADO</option>
-              <option>FUERA DE SERVICIO</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Ubicación</label>
-            <input type="text" class="form-control" id="ubicacionUnidad">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">AOP</label>
-            <input type="text" class="form-control" id="aopUnidad">
+
+      <!-- Panel derecho -->
+      <div class="col-md-8 main-content p-4">
+        <h5 class="section-title">Nueva Emergencia</h5>
+        <form>
+          <div class="row mb-2">
+            <div class="col">
+              <label class="form-label">Unidades</label>
+              <input type="text" class="form-control" placeholder="Ej: Unidad 21, Unidad 5">
+            </div>
+            <div class="col">
+              <label class="form-label">Prioridad</label>
+              <select class="form-select">
+                <option>Baja</option>
+                <option>Media</option>
+                <option>Alta</option>
+              </select>
+            </div>
           </div>
 
-          <!-- Menús dependientes -->
-          <div class="col-md-4">
-            <label class="form-label">Agencia</label>
-            <select class="form-select" id="agenciaUnidad">
-              <option value="">Seleccionar...</option>
-              <option value="policia">Policía</option>
-              <option value="bomberos">Bomberos</option>
-              <option value="samu">SAMU</option>
-            </select>
+          <div class="mb-2">
+            <label class="form-label">Dirección Postal</label>
+            <input type="text" class="form-control" placeholder="Ej: Calle Mayor 123">
           </div>
 
-          <div class="col-md-4">
-            <label class="form-label">Departamento</label>
-            <select class="form-select" id="departamentoUnidad" disabled>
-              <option value="">Seleccionar agencia primero...</option>
-            </select>
+          <div class="mb-2">
+            <label class="form-label">Título de Llamada</label>
+            <input type="text" class="form-control" placeholder="Ej: Incendio en vivienda">
           </div>
 
-          <div class="col-md-4">
-            <label class="form-label">Subdivisión</label>
-            <select class="form-select" id="subdivisionUnidad" disabled>
-              <option value="">Seleccionar departamento primero...</option>
-            </select>
+          <div class="row mb-2">
+            <div class="col">
+              <label class="form-label">Código</label>
+              <input type="text" class="form-control" placeholder="Ej: 10-50">
+            </div>
+            <div class="col">
+              <label class="form-label">Unidad Primaria</label>
+              <input type="text" class="form-control" placeholder="Ej: Unidad 21">
+            </div>
           </div>
+
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" rows="3" placeholder="Detalles de la emergencia..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">📌 Crear Llamada</button>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn btn-primary" id="guardarUnidad">Guardar</button>
+
+        <h5 class="section-title mt-4">Llamadas Activas</h5>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">#1001 - Incendio en vivienda - Unidad 21 asignada</li>
+        </ul>
+
+        <h5 class="section-title">Historial de Llamadas</h5>
+        <ul class="list-group">
+          <li class="list-group-item">#0999 - Robo en banco (Finalizada)</li>
+        </ul>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-// Datos de dependencias
-const opciones = {
-  policia: {
-    "Guardia Civil": ["Tráfico", "Rural", "Seguridad Ciudadana"],
-    "Policía Nacional": ["UIP", "UPR", "Policía Judicial"]
-  },
-  bomberos: {
-    "Bomberos Urbanos": ["Rescate", "Incendios", "Prevención"],
-    "Bomberos Forestales": ["Extinción", "Emergencias forestales"]
-  },
-  samu: {
-    "SAMU Básico": ["Ambulancia básica", "Soporte vital básico"],
-    "SAMU Avanzado": ["UVI Móvil", "Emergencias críticas"]
-  }
-};
+  <!-- Panel Registros oculto -->
+  <div class="bottom-panel p-3" id="registrosPanel">
+    <h5>MIS ARCHIVOS</h5>
+    <button class="btn btn-sm btn-outline-primary mb-2">Actualizar</button>
+    <ul class="list-group mb-3">
+      <li class="list-group-item">Reportes (0)</li>
+      <li class="list-group-item">Registros (0)</li>
+    </ul>
+    <input type="text" class="form-control mb-2" placeholder="Buscar...">
+    <button class="btn btn-success btn-sm w-100 mb-2">Nuevo Informe</button>
+    <button class="btn btn-warning btn-sm w-100 mb-2">Nuevo Registro</button>
+    <button class="btn btn-danger btn-sm w-100">Panel Supervisor</button>
+  </div>
 
-const agenciaSelect = document.getElementById("agenciaUnidad");
-const departamentoSelect = document.getElementById("departamentoUnidad");
-const subdivisionSelect = document.getElementById("subdivisionUnidad");
+  <!-- Modal NOT SET -->
+  <div class="modal fade" id="unidadModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modificar Identificador: NOT SET</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-2">
+              <label class="form-label">Número de Unidad</label>
+              <input type="text" class="form-control" placeholder="Ej: 21">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-control" placeholder="Ej: Oficial Pérez">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Rango</label>
+              <input type="text" class="form-control" placeholder="Ej: Sargento">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Estatus</label>
+              <select class="form-select">
+                <option>DISPONIBLE</option>
+                <option>OCUPADO</option>
+                <option>FUERA DE SERVICIO</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Ubicación</label>
+              <input type="text" class="form-control" placeholder="Ej: Centro ciudad">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">AOP</label>
+              <input type="text" class="form-control" placeholder="Área de Patrulla">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Agencia</label>
+              <select id="agencia" class="form-select">
+                <option value="">Seleccionar...</option>
+                <option value="policia">Policía</option>
+                <option value="bomberos">Bomberos</option>
+                <option value="samu">SAMU</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Departamento</label>
+              <select id="departamento" class="form-select"></select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Subdivisión</label>
+              <select id="subdivision" class="form-select"></select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-// Cuando cambie la agencia
-agenciaSelect.addEventListener("change", () => {
-  const agencia = agenciaSelect.value;
-  departamentoSelect.innerHTML = "";
-  subdivisionSelect.innerHTML = "<option value=''>Seleccionar departamento primero...</option>";
-  subdivisionSelect.disabled = true;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Abrir/cerrar panel de registros
+    function toggleBottomPanel() {
+      const panel = document.getElementById("registrosPanel");
+      panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    }
 
-  if (agencia && opciones[agencia]) {
-    departamentoSelect.disabled = false;
-    departamentoSelect.innerHTML = "<option value=''>Seleccionar...</option>";
-    Object.keys(opciones[agencia]).forEach(dep => {
-      let opt = document.createElement("option");
-      opt.value = dep;
-      opt.textContent = dep;
-      departamentoSelect.appendChild(opt);
+    // Dependencias agencia -> departamento -> subdivisión
+    const agencias = {
+      policia: {
+        departamentos: {
+          "Guardia Civil": ["Tráfico", "Seguridad Ciudadana"],
+          "Policía Nacional": ["UIP", "UDYCO", "UDEV"]
+        }
+      },
+      bomberos: {
+        departamentos: {
+          "Cuerpo de Bomberos": ["Intervención", "Rescate", "Incendios"]
+        }
+      },
+      samu: {
+        departamentos: {
+          "SAMU": ["Emergencias", "Transporte", "Cuidados Intensivos"]
+        }
+      }
+    };
+
+    document.getElementById("agencia").addEventListener("change", function() {
+      const deptSelect = document.getElementById("departamento");
+      const subSelect = document.getElementById("subdivision");
+      deptSelect.innerHTML = "";
+      subSelect.innerHTML = "";
+
+      if (this.value && agencias[this.value]) {
+        const departamentos = agencias[this.value].departamentos;
+        Object.keys(departamentos).forEach(dep => {
+          const option = document.createElement("option");
+          option.value = dep;
+          option.textContent = dep;
+          deptSelect.appendChild(option);
+        });
+      }
     });
-  } else {
-    departamentoSelect.disabled = true;
-    departamentoSelect.innerHTML = "<option value=''>Seleccionar agencia primero...</option>";
-  }
-});
 
-// Cuando cambie el departamento
-departamentoSelect.addEventListener("change", () => {
-  const agencia = agenciaSelect.value;
-  const depto = departamentoSelect.value;
-  subdivisionSelect.innerHTML = "";
+    document.getElementById("departamento").addEventListener("change", function() {
+      const agenciaVal = document.getElementById("agencia").value;
+      const subSelect = document.getElementById("subdivision");
+      subSelect.innerHTML = "";
 
-  if (agencia && depto && opciones[agencia][depto]) {
-    subdivisionSelect.disabled = false;
-    subdivisionSelect.innerHTML = "<option value=''>Seleccionar...</option>";
-    opciones[agencia][depto].forEach(sub => {
-      let opt = document.createElement("option");
-      opt.value = sub;
-      opt.textContent = sub;
-      subdivisionSelect.appendChild(opt);
+      if (agenciaVal && agencias[agenciaVal]) {
+        const subdivisiones = agencias[agenciaVal].departamentos[this.value];
+        subdivisiones.forEach(sub => {
+          const option = document.createElement("option");
+          option.value = sub;
+          option.textContent = sub;
+          subSelect.appendChild(option);
+        });
+      }
     });
-  } else {
-    subdivisionSelect.disabled = true;
-    subdivisionSelect.innerHTML = "<option value=''>Seleccionar departamento primero...</option>";
-  }
-});
-</script>
+  </script>
+</body>
+</html>
