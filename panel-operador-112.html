@@ -7,7 +7,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-/* Estilos básicos para mini CAD */
 body { font-size: 0.9rem; }
 .card { margin-bottom: 1rem; }
 .panel-izquierda { width: 48%; float: left; }
@@ -50,6 +49,11 @@ body { font-size: 0.9rem; }
 
     <!-- Panel Derecho -->
     <div class="panel-derecha">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5>NOT SET</h5>
+        <button id="btnNotSet" class="btn btn-warning btn-sm">NOT SET</button>
+      </div>
+
       <h5>Nuevo Operador / Crear Emergencia</h5>
       <form id="formNuevaEmergencia">
         <div class="mb-2">
@@ -160,6 +164,49 @@ let subdivisionesData = {
   "UME Valencia": ["Subdivisión UME"]
 };
 
+let unidadSeleccionada = null;
+let unidades = JSON.parse(localStorage.getItem("unidades")) || [];
+
+const btnNotSet = document.getElementById("btnNotSet");
+
+// Función para actualizar botón NOT SET
+function actualizarNotSet(unidad){
+  if(unidad){
+    btnNotSet.textContent = `${unidad.numero || "NOT SET"} - ${unidad.nombre || ""} (${unidad.estatus || ""})`;
+  } else {
+    btnNotSet.textContent = "NOT SET";
+  }
+}
+
+// Renderizar unidades activas
+function renderUnidades(){
+  const lista = document.getElementById("listaUnidades");
+  lista.innerHTML = "";
+  unidades.forEach((u,i)=>{
+    const li = document.createElement("li");
+    li.textContent = `${u.numero || "NOT SET"} - ${u.nombre || ""} (${u.estatus || ""})`;
+    li.classList.add("list-group-item");
+    li.addEventListener("click", ()=>{
+      unidadSeleccionada = i;
+      document.getElementById("numeroUnidad").value = u.numero || "";
+      document.getElementById("nombreUnidad").value = u.nombre || "";
+      document.getElementById("rangoUnidad").value = u.rango || "";
+      document.getElementById("estatusUnidad").value = u.estatus || "";
+      document.getElementById("ubicacionUnidad").value = u.ubicacion || "";
+      document.getElementById("agenciaUnidad").value = u.agencia || "";
+      document.getElementById("agenciaUnidad").dispatchEvent(new Event("change"));
+      document.getElementById("departamentoUnidad").value = u.departamento || "";
+      document.getElementById("departamentoUnidad").dispatchEvent(new Event("change"));
+      document.getElementById("subdivisionUnidad").value = u.subdivision || "";
+      let modal = new bootstrap.Modal(document.getElementById("modalUnidad"));
+      modal.show();
+    });
+    lista.appendChild(li);
+  });
+  actualizarNotSet(unidades[unidadSeleccionada]);
+}
+renderUnidades();
+
 // Actualizar departamentos según agencia
 document.getElementById("agenciaUnidad").addEventListener("change", e=>{
   let depSelect = document.getElementById("departamentoUnidad");
@@ -183,8 +230,23 @@ document.getElementById("departamentoUnidad").addEventListener("change", e=>{
   });
 });
 
-// Guardar unidad modificada
+// Guardar unidad modificada en modal
 document.getElementById("guardarUnidad").addEventListener("click", ()=>{
+  if(unidadSeleccionada===null){
+    unidades.push({});
+    unidadSeleccionada = unidades.length-1;
+  }
+  let u = unidades[unidadSeleccionada];
+  u.numero = document.getElementById("numeroUnidad").value;
+  u.nombre = document.getElementById("nombreUnidad").value;
+  u.rango = document.getElementById("rangoUnidad").value;
+  u.estatus = document.getElementById("estatusUnidad").value;
+  u.ubicacion = document.getElementById("ubicacionUnidad").value;
+  u.agencia = document.getElementById("agenciaUnidad").value;
+  u.departamento = document.getElementById("departamentoUnidad").value;
+  u.subdivision = document.getElementById("subdivisionUnidad").value;
+  localStorage.setItem("unidades", JSON.stringify(unidades));
+  renderUnidades();
   bootstrap.Modal.getInstance(document.getElementById("modalUnidad")).hide();
 });
 
@@ -192,6 +254,21 @@ document.getElementById("guardarUnidad").addEventListener("click", ()=>{
 document.getElementById("btnRegistros").addEventListener("click", ()=>{
   let panel = document.getElementById("registrosPanel");
   panel.style.display = panel.style.display==="none"?"block":"none";
+});
+
+// Crear nueva llamada
+document.getElementById("formNuevaEmergencia").addEventListener("submit", e=>{
+  e.preventDefault();
+  const titulo = document.getElementById("tituloLlamada").value;
+  const desc = document.getElementById("descripcionLlamada").value;
+  const prioridad = document.getElementById("prioridad").value;
+  if(!titulo) return alert("Introduce un título");
+  const llamadasActivasList = document.getElementById("listaLlamadasActivas");
+  const li = document.createElement("li");
+  li.textContent = `${titulo} (${prioridad}) - ${desc}`;
+  li.classList.add("list-group-item");
+  llamadasActivasList.appendChild(li);
+  document.getElementById("formNuevaEmergencia").reset();
 });
 </script>
 </body>
