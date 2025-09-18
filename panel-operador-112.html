@@ -1,279 +1,271 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Operador 112 - Spanish City RP</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background: #f8f9fa; }
-    .sidebar {
-      background: #ffffff;
-      border-right: 1px solid #dee2e6;
-      height: calc(100vh - 56px);
-      overflow-y: auto;
-    }
-    .main-content {
-      background: #ffffff;
-      height: calc(100vh - 56px);
-      overflow-y: auto;
-    }
-    .section-title {
-      font-weight: bold;
-      margin-top: 15px;
-      margin-bottom: 10px;
-    }
-    .bottom-panel {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 350px;
-      background: #fff;
-      border-top: 1px solid #dee2e6;
-      border-right: 1px solid #dee2e6;
-      display: none;
-      height: 300px;
-      overflow-y: auto;
-      z-index: 1050;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operador 112 - Spanish City RP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background-color: #f8f9fa; }
+  .left-panel { height: 90vh; overflow-y: auto; }
+  .right-panel { height: 90vh; overflow-y: auto; }
+  .fixed-bottom-left { position: fixed; bottom: 20px; left: 20px; }
+  .offcanvas { width: 350px; }
+</style>
 </head>
 <body>
-  <!-- Navbar con botón NOT SET -->
-  <nav class="navbar navbar-light bg-light shadow-sm">
-    <div class="container-fluid justify-content-between">
-      <span class="navbar-brand mb-0 h1">📞 Panel Operador 112</span>
-      <button class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#unidadModal">NOT SET</button>
+<header>
+  <nav class="navbar navbar-expand-lg shadow p-3 bg-white">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Spanish City RP</a>
+      <button class="btn btn-warning fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#modalUnidad">NOT SET</button>
     </div>
   </nav>
+</header>
 
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar izquierda -->
-      <div class="col-md-4 sidebar p-3">
-        <h5 class="section-title">Unidades Activas</h5>
-        <ul class="list-group mb-3" id="unidadesActivas">
-          <li class="list-group-item">🚓 Unidad 21 - Disponible</li>
-          <li class="list-group-item">🚒 Unidad 5 - En ruta</li>
-        </ul>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <!-- Panel izquierdo -->
+    <div class="col-md-4 left-panel">
+      <h5 class="fw-bold">🚔 Unidades Activas</h5>
+      <ul id="listaUnidades" class="list-group mb-3"></ul>
 
-        <h5 class="section-title">Grupo de Unidades</h5>
-        <ul class="list-group mb-3">
-          <li class="list-group-item">Grupo Alfa</li>
-          <li class="list-group-item">Grupo Bravo</li>
-        </ul>
+      <h5 class="fw-bold">👥 Grupos de Unidades</h5>
+      <ul id="gruposUnidades" class="list-group mb-3">
+        <li class="list-group-item text-muted">Ningún grupo creado</li>
+      </ul>
 
-        <h5 class="section-title">Llamadas Activas</h5>
-        <ul class="list-group mb-3" id="llamadasActivas">
-          <li class="list-group-item">#1001 - Incendio en vivienda</li>
-          <li class="list-group-item">#1002 - Accidente de tráfico</li>
-        </ul>
+      <h5 class="fw-bold">📞 Llamadas Activas</h5>
+      <ul id="llamadasActivas" class="list-group">
+        <li class="list-group-item text-muted">No hay llamadas</li>
+      </ul>
+    </div>
 
-        <!-- Botón de Registros -->
-        <div class="position-absolute bottom-0 start-0 p-3">
-          <button class="btn btn-secondary w-100" onclick="toggleBottomPanel()">📂 Registros</button>
-        </div>
-      </div>
-
-      <!-- Panel derecho -->
-      <div class="col-md-8 main-content p-4">
-        <h5 class="section-title">Nueva Emergencia</h5>
-        <form>
-          <div class="row mb-2">
-            <div class="col">
-              <label class="form-label">Unidades</label>
-              <input type="text" class="form-control" placeholder="Ej: Unidad 21, Unidad 5">
-            </div>
-            <div class="col">
-              <label class="form-label">Prioridad</label>
-              <select class="form-select">
-                <option>Baja</option>
-                <option>Media</option>
-                <option>Alta</option>
-              </select>
-            </div>
+    <!-- Panel derecho -->
+    <div class="col-md-8 right-panel">
+      <h4 class="fw-bold">➕ Nueva Emergencia</h4>
+      <form id="formEmergencia" class="mb-4">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Unidades</label>
+            <input type="text" class="form-control" id="unidades">
           </div>
-
-          <div class="mb-2">
+          <div class="col-md-4">
+            <label class="form-label">Prioridad</label>
+            <select class="form-select" id="prioridad">
+              <option>Baja</option>
+              <option>Media</option>
+              <option>Alta</option>
+            </select>
+          </div>
+          <div class="col-md-4">
             <label class="form-label">Dirección Postal</label>
-            <input type="text" class="form-control" placeholder="Ej: Calle Mayor 123">
+            <input type="text" class="form-control" id="direccion">
           </div>
-
-          <div class="mb-2">
+          <div class="col-md-6">
             <label class="form-label">Título de Llamada</label>
-            <input type="text" class="form-control" placeholder="Ej: Incendio en vivienda">
+            <input type="text" class="form-control" id="tituloLlamada">
           </div>
-
-          <div class="row mb-2">
-            <div class="col">
-              <label class="form-label">Código</label>
-              <input type="text" class="form-control" placeholder="Ej: 10-50">
-            </div>
-            <div class="col">
-              <label class="form-label">Unidad Primaria</label>
-              <input type="text" class="form-control" placeholder="Ej: Unidad 21">
-            </div>
+          <div class="col-md-6">
+            <label class="form-label">Código</label>
+            <input type="text" class="form-control" id="codigo">
           </div>
-
-          <div class="mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Unidad Primaria</label>
+            <input type="text" class="form-control" id="unidadPrimaria">
+          </div>
+          <div class="col-md-12">
             <label class="form-label">Descripción</label>
-            <textarea class="form-control" rows="3" placeholder="Detalles de la emergencia..."></textarea>
+            <textarea class="form-control" id="descripcion" rows="3"></textarea>
           </div>
+        </div>
+        <button class="btn btn-success mt-3 w-100">Crear Llamada</button>
+      </form>
 
-          <button type="submit" class="btn btn-primary">📌 Crear Llamada</button>
+      <h5 class="fw-bold">📞 Llamadas Activas</h5>
+      <ul id="listaLlamadasActivas" class="list-group mb-3"></ul>
+
+      <h5 class="fw-bold">📜 Historial de Llamadas</h5>
+      <ul id="historialLlamadas" class="list-group"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- Botón fijo Registros -->
+<button class="btn btn-dark fixed-bottom-left" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRegistros">
+  📂 Registros
+</button>
+
+<!-- Panel lateral de registros -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRegistros">
+  <div class="offcanvas-header">
+    <h5>📂 Panel de Registros</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p><strong>MIS ARCHIVOS</strong></p>
+    <button class="btn btn-primary w-100 mb-2">Actualizar</button>
+    <button class="btn btn-outline-secondary w-100 mb-2">Reportes (0)</button>
+    <button class="btn btn-outline-secondary w-100 mb-2">Registros (0)</button>
+    <button class="btn btn-outline-dark w-100 mb-2">Buscar</button>
+    <button class="btn btn-success w-100 mb-2">Nuevo Informe</button>
+    <button class="btn btn-warning w-100 mb-2">Nuevo Registro</button>
+    <button class="btn btn-danger w-100">Panel Supervisor</button>
+  </div>
+</div>
+
+<!-- Modal NOT SET -->
+<div class="modal fade" id="modalUnidad" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content shadow-lg rounded-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Modificar identificador: NOT SET</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formUnidad">
+          <div class="mb-3">
+            <label class="form-label">Número de unidad</label>
+            <input type="text" class="form-control" id="numeroUnidad" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreUnidad" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Rango</label>
+            <input type="text" class="form-control" id="rangoUnidad">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Estatus</label>
+            <select id="estatusUnidad" class="form-select">
+              <option>DISPONIBLE</option>
+              <option>OCUPADO</option>
+              <option>FUERA DE SERVICIO</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ubicación</label>
+            <input type="text" class="form-control" id="ubicacionUnidad">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Agencia</label>
+            <select id="agenciaUnidad" class="form-select" required>
+              <option value="">Selecciona</option>
+              <option value="Policía">Policía</option>
+              <option value="Bomberos">Bomberos</option>
+              <option value="SAMU">SAMU</option>
+              <option value="UME">UME</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Departamento</label>
+            <select id="departamentoUnidad" class="form-select" required></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Subdivisión</label>
+            <select id="subdivisionUnidad" class="form-select"></select>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Guardar</button>
         </form>
-
-        <h5 class="section-title mt-4">Llamadas Activas</h5>
-        <ul class="list-group mb-3">
-          <li class="list-group-item">#1001 - Incendio en vivienda - Unidad 21 asignada</li>
-        </ul>
-
-        <h5 class="section-title">Historial de Llamadas</h5>
-        <ul class="list-group">
-          <li class="list-group-item">#0999 - Robo en banco (Finalizada)</li>
-        </ul>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Panel Registros oculto -->
-  <div class="bottom-panel p-3" id="registrosPanel">
-    <h5>MIS ARCHIVOS</h5>
-    <button class="btn btn-sm btn-outline-primary mb-2">Actualizar</button>
-    <ul class="list-group mb-3">
-      <li class="list-group-item">Reportes (0)</li>
-      <li class="list-group-item">Registros (0)</li>
-    </ul>
-    <input type="text" class="form-control mb-2" placeholder="Buscar...">
-    <button class="btn btn-success btn-sm w-100 mb-2">Nuevo Informe</button>
-    <button class="btn btn-warning btn-sm w-100 mb-2">Nuevo Registro</button>
-    <button class="btn btn-danger btn-sm w-100">Panel Supervisor</button>
-  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Departamentos y subdivisiones actualizados con Valencia + UME
+const departamentos = {
+  "Policía": ["Guardia Civil", "Policía Nacional", "Policía Local Valencia"],
+  "Bomberos": ["Bomberos Valencia", "Unidad Forestal"],
+  "SAMU": ["Emergencias Básicas", "Emergencias Avanzadas"],
+  "UME": ["UMED Valencia"]
+};
 
-  <!-- Modal NOT SET -->
-  <div class="modal fade" id="unidadModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modificar Identificador: NOT SET</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-2">
-              <label class="form-label">Número de Unidad</label>
-              <input type="text" class="form-control" placeholder="Ej: 21">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Nombre</label>
-              <input type="text" class="form-control" placeholder="Ej: Oficial Pérez">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Rango</label>
-              <input type="text" class="form-control" placeholder="Ej: Sargento">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Estatus</label>
-              <select class="form-select">
-                <option>DISPONIBLE</option>
-                <option>OCUPADO</option>
-                <option>FUERA DE SERVICIO</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Ubicación</label>
-              <input type="text" class="form-control" placeholder="Ej: Centro ciudad">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">AOP</label>
-              <input type="text" class="form-control" placeholder="Área de Patrulla">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Agencia</label>
-              <select id="agencia" class="form-select">
-                <option value="">Seleccionar...</option>
-                <option value="policia">Policía</option>
-                <option value="bomberos">Bomberos</option>
-                <option value="samu">SAMU</option>
-              </select>
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Departamento</label>
-              <select id="departamento" class="form-select"></select>
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Subdivisión</label>
-              <select id="subdivision" class="form-select"></select>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary">Guardar Cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
+const subdivisiones = {
+  "Guardia Civil": ["Tráfico", "Seguridad Ciudadana", "SEPRONA", "GRS"],
+  "Policía Nacional": ["UIP", "UDEF", "Brigada Judicial", "Grupo de Menores (GRUME)"],
+  "Policía Local Valencia": ["Tráfico", "Barrio del Carmen", "Grupo GAMA", "Unidad Canina"],
+  "Bomberos Valencia": ["Incendios Urbanos", "Rescate", "Forestales"],
+  "Unidad Forestal": ["Incendios Forestales", "Rescate en Montaña"],
+  "Emergencias Básicas": ["Ambulancia SVB 1", "Ambulancia SVB 2"],
+  "Emergencias Avanzadas": ["UVI Móvil", "Helicóptero Medicalizado"],
+  "UMED Valencia": ["Intervención en Incendios", "Intervención en Inundaciones", "Apoyo Logístico"]
+};
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Abrir/cerrar panel de registros
-    function toggleBottomPanel() {
-      const panel = document.getElementById("registrosPanel");
-      panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    }
-
-    // Dependencias agencia -> departamento -> subdivisión
-    const agencias = {
-      policia: {
-        departamentos: {
-          "Guardia Civil": ["Tráfico", "Seguridad Ciudadana"],
-          "Policía Nacional": ["UIP", "UDYCO", "UDEV"]
-        }
-      },
-      bomberos: {
-        departamentos: {
-          "Cuerpo de Bomberos": ["Intervención", "Rescate", "Incendios"]
-        }
-      },
-      samu: {
-        departamentos: {
-          "SAMU": ["Emergencias", "Transporte", "Cuidados Intensivos"]
-        }
-      }
-    };
-
-    document.getElementById("agencia").addEventListener("change", function() {
-      const deptSelect = document.getElementById("departamento");
-      const subSelect = document.getElementById("subdivision");
-      deptSelect.innerHTML = "";
-      subSelect.innerHTML = "";
-
-      if (this.value && agencias[this.value]) {
-        const departamentos = agencias[this.value].departamentos;
-        Object.keys(departamentos).forEach(dep => {
-          const option = document.createElement("option");
-          option.value = dep;
-          option.textContent = dep;
-          deptSelect.appendChild(option);
-        });
-      }
+// Dinámico Departamento/Subdivisión
+document.getElementById("agenciaUnidad").addEventListener("change", e => {
+  let deptSelect = document.getElementById("departamentoUnidad");
+  deptSelect.innerHTML = "";
+  let selected = e.target.value;
+  if(departamentos[selected]){
+    departamentos[selected].forEach(dep => {
+      let opt = document.createElement("option");
+      opt.value = dep;
+      opt.textContent = dep;
+      deptSelect.appendChild(opt);
     });
-
-    document.getElementById("departamento").addEventListener("change", function() {
-      const agenciaVal = document.getElementById("agencia").value;
-      const subSelect = document.getElementById("subdivision");
-      subSelect.innerHTML = "";
-
-      if (agenciaVal && agencias[agenciaVal]) {
-        const subdivisiones = agencias[agenciaVal].departamentos[this.value];
-        subdivisiones.forEach(sub => {
-          const option = document.createElement("option");
-          option.value = sub;
-          option.textContent = sub;
-          subSelect.appendChild(option);
-        });
-      }
+    deptSelect.dispatchEvent(new Event("change"));
+  }
+});
+document.getElementById("departamentoUnidad").addEventListener("change", e => {
+  let subSelect = document.getElementById("subdivisionUnidad");
+  subSelect.innerHTML = "";
+  let selected = e.target.value;
+  if(subdivisiones[selected]){
+    subdivisiones[selected].forEach(sub => {
+      let opt = document.createElement("option");
+      opt.value = sub;
+      opt.textContent = sub;
+      subSelect.appendChild(opt);
     });
-  </script>
+  }
+});
+
+// Guardar unidad
+document.getElementById("formUnidad").addEventListener("submit", e => {
+  e.preventDefault();
+  let unidad = {
+    numero: document.getElementById("numeroUnidad").value,
+    nombre: document.getElementById("nombreUnidad").value,
+    rango: document.getElementById("rangoUnidad").value,
+    estatus: document.getElementById("estatusUnidad").value,
+    ubicacion: document.getElementById("ubicacionUnidad").value,
+    agencia: document.getElementById("agenciaUnidad").value,
+    departamento: document.getElementById("departamentoUnidad").value,
+    subdivision: document.getElementById("subdivisionUnidad").value
+  };
+  let unidades = JSON.parse(localStorage.getItem("unidades")) || [];
+  unidades.push(unidad);
+  localStorage.setItem("unidades", JSON.stringify(unidades));
+  actualizarListaUnidades();
+  bootstrap.Modal.getInstance(document.getElementById("modalUnidad")).hide();
+  document.getElementById("formUnidad").reset();
+});
+
+// Mostrar unidades activas
+function actualizarListaUnidades(){
+  let lista = document.getElementById("listaUnidades");
+  lista.innerHTML = "";
+  let unidades = JSON.parse(localStorage.getItem("unidades")) || [];
+  if(unidades.length === 0){
+    let li = document.createElement("li");
+    li.textContent = "No hay unidades activas";
+    li.className = "list-group-item text-muted";
+    lista.appendChild(li);
+    return;
+  }
+  unidades.forEach(u => {
+    let li = document.createElement("li");
+    li.className = "list-group-item";
+    li.textContent = `${u.agencia} - ${u.departamento} - ${u.subdivision} (${u.estatus})`;
+    lista.appendChild(li);
+  });
+}
+
+actualizarListaUnidades();
+</script>
 </body>
 </html>
