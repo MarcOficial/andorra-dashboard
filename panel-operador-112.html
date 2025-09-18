@@ -5,139 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel Operador 112 - Spanish City RP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
 <style>
-body { font-size: 0.9rem; }
-.card { margin-bottom: 1rem; }
-.panel-izquierda { width: 48%; float: left; }
-.panel-derecha { width: 50%; float: right; }
-#registrosPanel { position: fixed; bottom: 0; left: 0; width: 300px; height: 100%; background: #f8f9fa; border-left: 1px solid #ccc; display: none; overflow-y: auto; padding: 1rem; z-index: 999; }
-.menu-contextual { position: absolute; z-index: 1000; display: none; background: #fff; border: 1px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-.menu-contextual li { padding: 5px 10px; cursor: pointer; }
-.menu-contextual li:hover { background-color: #f0f0f0; }
+body { font-family: Arial, sans-serif; background:#f0f2f5; }
+.panel-left, .panel-right { background:#fff; padding:15px; border-radius:8px; height:90vh; overflow-y:auto; }
+.table thead { background:#007bff; color:#fff; }
+.unidad-item { cursor:pointer; }
+.unidad-item:hover { background:#e2e6ea; }
+.menu-contextual { position:absolute; background:#fff; border:1px solid #ccc; display:none; z-index:1000; width:200px; border-radius:5px; list-style:none; padding:0; }
+.menu-contextual li { padding:5px 15px; cursor:pointer; }
+.menu-contextual li:hover { background:#f1f1f1; }
+.registros-tab { position:fixed; bottom:10px; left:10px; background:#fff; border:1px solid #ccc; padding:10px; border-radius:5px; max-width:300px; display:none; z-index:999; height:80vh; overflow-y:auto; }
+.boton-notset { margin-bottom:10px; }
+/* MODAL NOT SET */
+#modalNotSet { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+background:#1e1e2f; color:white; border-radius:10px; width:600px; max-width:90%; padding:20px; z-index:9999; box-shadow:0 0 15px rgba(0,0,0,0.5); }
+#modalNotSet label { display:block; margin-top:10px; font-weight:bold; }
+#modalNotSet input, #modalNotSet select { width:100%; margin-bottom:10px; }
+#modalNotSet .modal-footer { display:flex; justify-content:flex-end; gap:10px; margin-top:10px; }
 </style>
 </head>
 <body>
 
-<header>
-<nav class="navbar navbar-expand-lg shadow p-3">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Spanish City RP</a>
-  </div>
-</nav>
-</header>
-
-<div class="container-fluid my-3">
+<div class="container-fluid mt-2">
   <div class="row">
-    <!-- Panel Izquierdo -->
-    <div class="panel-izquierda">
-      <h5>UNIDADES ACTIVAS</h5>
-      <ul id="listaUnidades" class="list-group mb-2"></ul>
 
-      <h5>GRUPOS DE UNIDADES</h5>
-      <ul id="gruposUnidades" class="list-group mb-2">
-        <li class="list-group-item">Sin datos</li>
-      </ul>
-
-      <h5>LLAMADAS ACTIVAS</h5>
-      <ul id="llamadasActivas" class="list-group mb-2">
-        <li class="list-group-item">Sin datos</li>
-      </ul>
-
-      <button id="btnRegistros" class="btn btn-secondary mt-2">Registros</button>
+    <!-- PANEL IZQUIERDO -->
+    <div class="col-md-6 panel-left">
+      <h5>NOT SET: <button class="btn btn-warning btn-sm boton-notset" id="btnNotSet">NOT SET</button></h5>
+      <hr>
+      <h6>Unidades activas</h6>
+      <table class="table table-sm table-bordered">
+        <thead>
+          <tr>
+            <th>N° Unidad</th>
+            <th>Nombre</th>
+            <th>AOP</th>
+            <th>Ubicación</th>
+            <th>Estatus</th>
+          </tr>
+        </thead>
+        <tbody id="listaUnidades"></tbody>
+      </table>
+      <hr>
+      <h6>Grupo de unidades</h6>
+      <div id="grupoUnidades">Sin datos</div>
+      <hr>
+      <h6>Llamadas activas</h6>
+      <div id="llamadasActivas">Sin datos</div>
     </div>
 
-    <!-- Panel Derecho -->
-    <div class="panel-derecha">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <h5>NOT SET</h5>
-        <button id="btnNotSet" class="btn btn-warning btn-sm">NOT SET</button>
-      </div>
-
-      <h5>Nuevo Operador / Crear Emergencia</h5>
-      <form id="formNuevaEmergencia">
-        <div class="mb-2">
-          <label>Agencia</label>
-          <select id="agencia" class="form-select">
-            <option value="">Seleccionar</option>
-            <option value="Policia">Policía</option>
-            <option value="Bomberos">Bomberos</option>
-            <option value="SAMU">SAMU</option>
-            <option value="UME">UME</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label>Departamento</label>
-          <select id="departamento" class="form-select"></select>
-        </div>
-        <div class="mb-2">
-          <label>Subdivisión</label>
-          <select id="subdivision" class="form-select"></select>
-        </div>
-        <div class="mb-2">
-          <label>Título de llamada</label>
-          <input type="text" id="tituloLlamada" class="form-control">
-        </div>
-        <div class="mb-2">
-          <label>Descripción</label>
-          <textarea id="descripcionLlamada" class="form-control"></textarea>
-        </div>
-        <div class="mb-2">
-          <label>Prioridad</label>
-          <select id="prioridad" class="form-select">
-            <option value="Alta">Alta</option>
-            <option value="Media">Media</option>
-            <option value="Baja">Baja</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Crear Llamada</button>
-      </form>
-
-      <h5 class="mt-3">Llamadas activas</h5>
-      <ul id="listaLlamadasActivas" class="list-group mb-2"></ul>
-
-      <h5 class="mt-3">Historial de llamadas</h5>
-      <ul id="historialLlamadas" class="list-group mb-2"></ul>
-    </div>
-  </div>
-</div>
-
-<!-- Modal NOT SET -->
-<div class="modal fade" id="modalUnidad" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modificar Unidad - NOT SET</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="numeroUnidad" class="form-control mb-2" placeholder="Número de unidad">
-        <input type="text" id="nombreUnidad" class="form-control mb-2" placeholder="Nombre">
-        <input type="text" id="rangoUnidad" class="form-control mb-2" placeholder="Rango">
-        <input type="text" id="estatusUnidad" class="form-control mb-2" placeholder="Estatus">
-        <input type="text" id="ubicacionUnidad" class="form-control mb-2" placeholder="Ubicación">
-        <select id="agenciaUnidad" class="form-select mb-2">
+    <!-- PANEL DERECHO -->
+    <div class="col-md-6 panel-right">
+      <h5>Nuevo Operador / Crear Llamada</h5>
+      <hr>
+      <form id="formNuevoOperador">
+        <input type="text" id="numeroUnidad" class="form-control" placeholder="Número de unidad">
+        <input type="text" id="nombreUnidad" class="form-control" placeholder="Nombre">
+        <input type="text" id="rangoUnidad" class="form-control" placeholder="Rango">
+        <select id="agenciaUnidad" class="form-control">
           <option value="">Agencia</option>
-          <option value="Policia">Policía</option>
-          <option value="Bomberos">Bomberos</option>
-          <option value="SAMU">SAMU</option>
-          <option value="UME">UME</option>
+          <option value="policia">Policía</option>
+          <option value="bomberos">Bomberos</option>
+          <option value="samu">SAMU</option>
         </select>
-        <select id="departamentoUnidad" class="form-select mb-2"></select>
-        <select id="subdivisionUnidad" class="form-select mb-2"></select>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" id="guardarUnidad">Guardar</button>
-      </div>
+        <select id="departamentoUnidad" class="form-control">
+          <option value="">Departamento</option>
+        </select>
+        <select id="subdivisionUnidad" class="form-control">
+          <option value="">Subdivisión</option>
+        </select>
+        <select id="estatusUnidad" class="form-control">
+          <option value="DISPONIBLE">Disponible</option>
+          <option value="OCUPADO">Ocupado</option>
+        </select>
+        <input type="text" id="ubicacionUnidad" class="form-control" placeholder="Ubicación">
+        <button type="submit" class="btn btn-primary w-100">Agregar / Actualizar</button>
+      </form>
+      <hr>
+      <h6>Llamadas activas</h6>
+      <div id="panelLlamadasActivas">Sin datos</div>
+      <hr>
+      <h6>Historial de llamadas</h6>
+      <div id="historialLlamadas">Sin datos</div>
     </div>
+
   </div>
 </div>
 
-<!-- Panel lateral Registros -->
-<div id="registrosPanel">
-  <h5>Registros</h5>
+<!-- MENU CONTEXTUAL -->
+<ul id="menuContextual" class="menu-contextual">
+  <li id="adjuntarLlamada">Adjuntar a llamada</li>
+  <li id="adjuntarGrupo">Adjuntar a grupo</li>
+  <li id="buscarUnidad">Buscar</li>
+  <li id="tableroTonos">Tablero de tonos</li>
+  <li id="temporizadores">Temporizadores</li>
+  <li id="modificarUnidad">Modificar unidad</li>
+  <li id="activarPanico">Activar pánico</li>
+  <li id="sacarUnidad">Sacar unidad</li>
+</ul>
+
+<!-- REGISTROS -->
+<div id="registrosTab" class="registros-tab">
+  <h6>Registros</h6>
   <ul>
     <li>MIS ARCHIVOS</li>
+    <li>ACTUALIZAR</li>
     <li>REPORTES (0)</li>
     <li>REGISTROS (0)</li>
     <li>BUSCAR</li>
@@ -147,129 +119,173 @@ body { font-size: 0.9rem; }
   </ul>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<!-- MODAL NOT SET -->
+<div id="modalNotSet">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+    <span style="font-weight:bold; font-size:16px;">Modificar identificador: <span id="idUnidadNotSet">NOT SET</span></span>
+    <div>
+      <button onclick="cerrarModal()" style="background:none; border:none; color:white; font-size:16px;">X</button>
+    </div>
+  </div>
+  <hr style="border-color:#444;">
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <div style="flex:1 1 48%;">
+      <label>Número de unidad</label>
+      <input id="inputNumeroUnidad" type="text" class="form-control">
+      <label>Nombre</label>
+      <input id="inputNombreUnidad" type="text" class="form-control">
+      <label>Rango</label>
+      <input id="inputRangoUnidad" type="text" class="form-control">
+      <label>Estatus</label>
+      <select id="selectEstatusUnidad" class="form-control">
+        <option value="DISPONIBLE">DISPONIBLE</option>
+        <option value="OCUPADO">OCUPADO</option>
+      </select>
+      <label>Ubicación</label>
+      <input id="inputUbicacionUnidad" type="text" class="form-control">
+    </div>
+    <div style="flex:1 1 48%;">
+      <label>Agencia</label>
+      <select id="selectAgenciaModal" class="form-control">
+        <option value="">Seleccionar</option>
+        <option value="policia">Policía</option>
+        <option value="bomberos">Bomberos</option>
+        <option value="samu">SAMU</option>
+      </select>
+      <label>Departamento</label>
+      <select id="selectDepartamentoModal" class="form-control">
+        <option value="">Seleccionar</option>
+      </select>
+      <label>Subdivisión</label>
+      <select id="selectSubdivisionModal" class="form-control">
+        <option value="">Seleccionar</option>
+      </select>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button onclick="guardarModal()" class="btn btn-success">Guardar</button>
+    <button onclick="cerrarModal()" class="btn btn-secondary">Cerrar</button>
+  </div>
+</div>
+
 <script>
-// Datos iniciales
-let departamentosData = {
-  Policia: ["Guardia Civil","Policía Nacional"],
-  Bomberos: ["Valencia Bomberos"],
-  SAMU: ["SAMU Valencia"],
-  UME: ["UME Valencia"]
-};
-let subdivisionesData = {
-  "Guardia Civil": ["Subdivisión 1","Subdivisión 2"],
-  "Policía Nacional": ["Subdivisión A","Subdivisión B"],
-  "Valencia Bomberos": ["Subdivisión Fuego"],
-  "SAMU Valencia": ["Subdivisión SAMU"],
-  "UME Valencia": ["Subdivisión UME"]
-};
-
+// Datos de unidades y llamadas
+let unidades = JSON.parse(localStorage.getItem("unidades")||"[]");
+let llamadas = JSON.parse(localStorage.getItem("llamadas")||"[]");
 let unidadSeleccionada = null;
-let unidades = JSON.parse(localStorage.getItem("unidades")) || [];
 
-const btnNotSet = document.getElementById("btnNotSet");
+// Agencias y departamentos con subdivisiones
+const agenciaDepartamento = {
+  "policia": { "Policía Nacional":["Valencia","Alicante"], "Guardia Civil":["Valencia","Castellón"] },
+  "bomberos": { "Bomberos":["Central","Sur"], "UME":["Central"] },
+  "samu": { "SAMU":["Central","Valencia"] }
+};
 
-// Función para actualizar botón NOT SET
-function actualizarNotSet(unidad){
-  if(unidad){
-    btnNotSet.textContent = `${unidad.numero || "NOT SET"} - ${unidad.nombre || ""} (${unidad.estatus || ""})`;
-  } else {
-    btnNotSet.textContent = "NOT SET";
-  }
-}
-
-// Renderizar unidades activas
+// Funciones
 function renderUnidades(){
   const lista = document.getElementById("listaUnidades");
-  lista.innerHTML = "";
+  lista.innerHTML="";
   unidades.forEach((u,i)=>{
-    const li = document.createElement("li");
-    li.textContent = `${u.numero || "NOT SET"} - ${u.nombre || ""} (${u.estatus || ""})`;
-    li.classList.add("list-group-item");
-    li.addEventListener("click", ()=>{
-      unidadSeleccionada = i;
-      document.getElementById("numeroUnidad").value = u.numero || "";
-      document.getElementById("nombreUnidad").value = u.nombre || "";
-      document.getElementById("rangoUnidad").value = u.rango || "";
-      document.getElementById("estatusUnidad").value = u.estatus || "";
-      document.getElementById("ubicacionUnidad").value = u.ubicacion || "";
-      document.getElementById("agenciaUnidad").value = u.agencia || "";
-      document.getElementById("agenciaUnidad").dispatchEvent(new Event("change"));
-      document.getElementById("departamentoUnidad").value = u.departamento || "";
-      document.getElementById("departamentoUnidad").dispatchEvent(new Event("change"));
-      document.getElementById("subdivisionUnidad").value = u.subdivision || "";
-      let modal = new bootstrap.Modal(document.getElementById("modalUnidad"));
-      modal.show();
-    });
-    lista.appendChild(li);
+    const tr=document.createElement("tr");
+    tr.className="unidad-item";
+    tr.dataset.index=i;
+    tr.innerHTML=`<td>${u.numero||"NOT SET"}</td><td>${u.nombre||""}</td><td>${u.aop||""}</td><td>${u.ubicacion||""}</td><td>${u.estatus||""}</td>`;
+    tr.onclick=()=>abrirModal(u,i);
+    lista.appendChild(tr);
   });
-  actualizarNotSet(unidades[unidadSeleccionada]);
 }
-renderUnidades();
-
-// Actualizar departamentos según agencia
-document.getElementById("agenciaUnidad").addEventListener("change", e=>{
-  let depSelect = document.getElementById("departamentoUnidad");
-  depSelect.innerHTML = "";
-  let deps = departamentosData[e.target.value] || [];
-  deps.forEach(d=>{
-    let opt = document.createElement("option"); opt.value=d; opt.text=d;
-    depSelect.appendChild(opt);
-  });
-  depSelect.dispatchEvent(new Event("change"));
-});
-
-// Actualizar subdivisiones según departamento
-document.getElementById("departamentoUnidad").addEventListener("change", e=>{
-  let subSelect = document.getElementById("subdivisionUnidad");
-  subSelect.innerHTML = "";
-  let subs = subdivisionesData[e.target.value] || [];
-  subs.forEach(s=>{
-    let opt = document.createElement("option"); opt.value=s; opt.text=s;
-    subSelect.appendChild(opt);
-  });
-});
-
-// Guardar unidad modificada en modal
-document.getElementById("guardarUnidad").addEventListener("click", ()=>{
-  if(unidadSeleccionada===null){
-    unidades.push({});
-    unidadSeleccionada = unidades.length-1;
+function abrirModal(u,index){
+  unidadSeleccionada=index;
+  document.getElementById("modalNotSet").style.display="block";
+  document.getElementById("idUnidadNotSet").innerText=u.numero||"NOT SET";
+  document.getElementById("inputNumeroUnidad").value=u.numero||"";
+  document.getElementById("inputNombreUnidad").value=u.nombre||"";
+  document.getElementById("inputRangoUnidad").value=u.rango||"";
+  document.getElementById("inputUbicacionUnidad").value=u.ubicacion||"";
+  document.getElementById("selectEstatusUnidad").value=u.estatus||"DISPONIBLE";
+  document.getElementById("selectAgenciaModal").value=u.agencia||"";
+  actualizarDepartamentos();
+  document.getElementById("selectDepartamentoModal").value=u.departamento||"";
+  actualizarSubdivisiones();
+  document.getElementById("selectSubdivisionModal").value=u.subdivision||"";
+}
+function cerrarModal(){ document.getElementById("modalNotSet").style.display="none"; }
+function guardarModal(){
+  if(unidadSeleccionada!==null){
+    const u = unidades[unidadSeleccionada];
+    u.numero=document.getElementById("inputNumeroUnidad").value;
+    u.nombre=document.getElementById("inputNombreUnidad").value;
+    u.rango=document.getElementById("inputRangoUnidad").value;
+    u.ubicacion=document.getElementById("inputUbicacionUnidad").value;
+    u.estatus=document.getElementById("selectEstatusUnidad").value;
+    u.agencia=document.getElementById("selectAgenciaModal").value;
+    u.departamento=document.getElementById("selectDepartamentoModal").value;
+    u.subdivision=document.getElementById("selectSubdivisionModal").value;
+    localStorage.setItem("unidades",JSON.stringify(unidades));
+    renderUnidades();
+    cerrarModal();
   }
-  let u = unidades[unidadSeleccionada];
-  u.numero = document.getElementById("numeroUnidad").value;
-  u.nombre = document.getElementById("nombreUnidad").value;
-  u.rango = document.getElementById("rangoUnidad").value;
-  u.estatus = document.getElementById("estatusUnidad").value;
-  u.ubicacion = document.getElementById("ubicacionUnidad").value;
-  u.agencia = document.getElementById("agenciaUnidad").value;
-  u.departamento = document.getElementById("departamentoUnidad").value;
-  u.subdivision = document.getElementById("subdivisionUnidad").value;
-  localStorage.setItem("unidades", JSON.stringify(unidades));
-  renderUnidades();
-  bootstrap.Modal.getInstance(document.getElementById("modalUnidad")).hide();
-});
+}
 
-// Mostrar/ocultar panel registros
-document.getElementById("btnRegistros").addEventListener("click", ()=>{
-  let panel = document.getElementById("registrosPanel");
-  panel.style.display = panel.style.display==="none"?"block":"none";
-});
+// Dropdown dependientes
+function actualizarDepartamentos(){
+  const agencia=document.getElementById("selectAgenciaModal").value;
+  const depSelect=document.getElementById("selectDepartamentoModal");
+  depSelect.innerHTML="<option value=''>Seleccionar</option>";
+  if(agenciaDepartamento[agencia]){
+    Object.keys(agenciaDepartamento[agencia]).forEach(d=>{
+      const opt=document.createElement("option");
+      opt.value=d; opt.text=d;
+      depSelect.appendChild(opt);
+    });
+  }
+  actualizarSubdivisiones();
+}
+function actualizarSubdivisiones(){
+  const agencia=document.getElementById("selectAgenciaModal").value;
+  const depto=document.getElementById("selectDepartamentoModal").value;
+  const subSelect=document.getElementById("selectSubdivisionModal");
+  subSelect.innerHTML="<option value=''>Seleccionar</option>";
+  if(agenciaDepartamento[agencia] && agenciaDepartamento[agencia][depto]){
+    agenciaDepartamento[agencia][depto].forEach(s=>{
+      const opt=document.createElement("option");
+      opt.value=s; opt.text=s;
+      subSelect.appendChild(opt);
+    });
+  }
+}
 
-// Crear nueva llamada
-document.getElementById("formNuevaEmergencia").addEventListener("submit", e=>{
+// Inicializar
+document.getElementById("selectAgenciaModal").onchange=actualizarDepartamentos;
+document.getElementById("selectDepartamentoModal").onchange=actualizarSubdivisiones;
+
+// Botón NOT SET
+document.getElementById("btnNotSet").onclick=()=>{
+  abrirModal({numero:"NOT SET", nombre:"", rango:"", ubicacion:"", estatus:"DISPONIBLE", agencia:"", departamento:"", subdivision:""},null);
+}
+
+// Formulario nuevo operador
+document.getElementById("formNuevoOperador").onsubmit=(e)=>{
   e.preventDefault();
-  const titulo = document.getElementById("tituloLlamada").value;
-  const desc = document.getElementById("descripcionLlamada").value;
-  const prioridad = document.getElementById("prioridad").value;
-  if(!titulo) return alert("Introduce un título");
-  const llamadasActivasList = document.getElementById("listaLlamadasActivas");
-  const li = document.createElement("li");
-  li.textContent = `${titulo} (${prioridad}) - ${desc}`;
-  li.classList.add("list-group-item");
-  llamadasActivasList.appendChild(li);
-  document.getElementById("formNuevaEmergencia").reset();
-});
+  unidades.push({
+    numero:document.getElementById("numeroUnidad").value||"NOT SET",
+    nombre:document.getElementById("nombreUnidad").value,
+    rango:document.getElementById("rangoUnidad").value,
+    ubicacion:document.getElementById("ubicacionUnidad").value,
+    estatus:document.getElementById("estatusUnidad").value,
+    agencia:document.getElementById("agenciaUnidad").value,
+    departamento:document.getElementById("departamentoUnidad").value,
+    subdivision:document.getElementById("subdivisionUnidad").value,
+    aop:""
+  });
+  localStorage.setItem("unidades",JSON.stringify(unidades));
+  renderUnidades();
+  e.target.reset();
+}
+
+// Render inicial
+renderUnidades();
 </script>
+
 </body>
 </html>
