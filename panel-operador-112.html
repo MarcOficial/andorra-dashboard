@@ -1,291 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Operador 112 - Spanish City RP</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body { font-family: Arial, sans-serif; background:#f0f2f5; }
-.panel-left, .panel-right { background:#fff; padding:15px; border-radius:8px; height:90vh; overflow-y:auto; }
-.table thead { background:#007bff; color:#fff; }
-.unidad-item { cursor:pointer; }
-.unidad-item:hover { background:#e2e6ea; }
-.menu-contextual { position:absolute; background:#fff; border:1px solid #ccc; display:none; z-index:1000; width:200px; border-radius:5px; list-style:none; padding:0; }
-.menu-contextual li { padding:5px 15px; cursor:pointer; }
-.menu-contextual li:hover { background:#f1f1f1; }
-.registros-tab { position:fixed; bottom:10px; left:10px; background:#fff; border:1px solid #ccc; padding:10px; border-radius:5px; max-width:300px; display:none; z-index:999; height:80vh; overflow-y:auto; }
-.boton-notset { margin-bottom:10px; }
-/* MODAL NOT SET */
-#modalNotSet { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-background:#1e1e2f; color:white; border-radius:10px; width:600px; max-width:90%; padding:20px; z-index:9999; box-shadow:0 0 15px rgba(0,0,0,0.5); }
-#modalNotSet label { display:block; margin-top:10px; font-weight:bold; }
-#modalNotSet input, #modalNotSet select { width:100%; margin-bottom:10px; }
-#modalNotSet .modal-footer { display:flex; justify-content:flex-end; gap:10px; margin-top:10px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Panel Operador 112</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1b1b1b;
+      color: #fff;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      margin-top: 0;
+      color: #00ff99;
+    }
+    .card {
+      background-color: #2a2a2a;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
+    th {
+      color: #00ff99;
+    }
+    .badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 12px;
+    }
+    .green { background-color: #28a745; }
+    .red { background-color: #dc3545; }
+    .yellow { background-color: #ffc107; color: #000; }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: none;
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #00ff99;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #00cc77;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
 
-<div class="container-fluid mt-2">
-  <div class="row">
-
-    <!-- PANEL IZQUIERDO -->
-    <div class="col-md-6 panel-left">
-      <h5>NOT SET: <button class="btn btn-warning btn-sm boton-notset" id="btnNotSet">NOT SET</button></h5>
-      <hr>
-      <h6>Unidades activas</h6>
-      <table class="table table-sm table-bordered">
+    <!-- Unidades Activas -->
+    <div class="card">
+      <h2>Unidades Activas</h2>
+      <table id="unitsTable">
         <thead>
           <tr>
-            <th>N° Unidad</th>
+            <th>Unidad</th>
             <th>Nombre</th>
             <th>AOP</th>
             <th>Ubicación</th>
+            <th>Agencia</th>
+            <th>Departamento</th>
+            <th>Subdivisión</th>
+            <th>Rango</th>
             <th>Estatus</th>
           </tr>
         </thead>
-        <tbody id="listaUnidades"></tbody>
+        <tbody>
+        </tbody>
       </table>
-      <hr>
-      <h6>Grupo de unidades</h6>
-      <div id="grupoUnidades">Sin datos</div>
-      <hr>
-      <h6>Llamadas activas</h6>
-      <div id="llamadasActivas">Sin datos</div>
     </div>
 
-    <!-- PANEL DERECHO -->
-    <div class="col-md-6 panel-right">
-      <h5>Nuevo Operador / Crear Llamada</h5>
-      <hr>
-      <form id="formNuevoOperador">
-        <input type="text" id="numeroUnidad" class="form-control" placeholder="Número de unidad">
-        <input type="text" id="nombreUnidad" class="form-control" placeholder="Nombre">
-        <input type="text" id="rangoUnidad" class="form-control" placeholder="Rango">
-        <select id="agenciaUnidad" class="form-control">
-          <option value="">Agencia</option>
-          <option value="policia">Policía</option>
-          <option value="bomberos">Bomberos</option>
-          <option value="samu">SAMU</option>
-        </select>
-        <select id="departamentoUnidad" class="form-control">
-          <option value="">Departamento</option>
-        </select>
-        <select id="subdivisionUnidad" class="form-control">
-          <option value="">Subdivisión</option>
-        </select>
-        <select id="estatusUnidad" class="form-control">
-          <option value="DISPONIBLE">Disponible</option>
-          <option value="OCUPADO">Ocupado</option>
-        </select>
-        <input type="text" id="ubicacionUnidad" class="form-control" placeholder="Ubicación">
-        <button type="submit" class="btn btn-primary w-100">Agregar / Actualizar</button>
-      </form>
-      <hr>
-      <h6>Llamadas activas</h6>
-      <div id="panelLlamadasActivas">Sin datos</div>
-      <hr>
-      <h6>Historial de llamadas</h6>
-      <div id="historialLlamadas">Sin datos</div>
+    <!-- Grupos de Unidades -->
+    <div class="card">
+      <h2>Grupos de Unidades</h2>
+      <table id="groupsTable">
+        <thead>
+          <tr>
+            <th>Grupo</th>
+            <th>Miembros</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Llamadas de Emergencia -->
+    <div class="card">
+      <h2>Llamadas de Emergencia</h2>
+      <table id="emergencyTable">
+        <thead>
+          <tr>
+            <th>Llamante</th>
+            <th>Ubicación</th>
+            <th>Tipo</th>
+            <th>Estatus</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Formulario de Nuevo Operador -->
+    <div class="card">
+      <h2>Nuevo Operador</h2>
+      <input type="text" id="operatorName" placeholder="Nombre">
+      <input type="text" id="operatorRank" placeholder="Rango">
+      <input type="text" id="operatorDept" placeholder="Departamento">
+      <button onclick="addOperator()">Agregar Operador</button>
+    </div>
+
+    <!-- Llamadas Activas -->
+    <div class="card">
+      <h2>Llamadas Activas</h2>
+      <table id="activeCallsTable">
+        <thead>
+          <tr>
+            <th>Llamada</th>
+            <th>Unidades Asignadas</th>
+            <th>Estatus</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     </div>
 
   </div>
-</div>
 
-<!-- MENU CONTEXTUAL -->
-<ul id="menuContextual" class="menu-contextual">
-  <li id="adjuntarLlamada">Adjuntar a llamada</li>
-  <li id="adjuntarGrupo">Adjuntar a grupo</li>
-  <li id="buscarUnidad">Buscar</li>
-  <li id="tableroTonos">Tablero de tonos</li>
-  <li id="temporizadores">Temporizadores</li>
-  <li id="modificarUnidad">Modificar unidad</li>
-  <li id="activarPanico">Activar pánico</li>
-  <li id="sacarUnidad">Sacar unidad</li>
-</ul>
+  <script>
+    // Datos iniciales
+    const units = [
+      { unit: 'LSPD 1', name: 'John Doe', aop: 'LSPD HQ', location: 'Los Santos', agency: 'LSPD', department: 'Patrulla', subdivision: '-', rank: 'Sargento', status: 'Activo', statusClass: 'green' },
+    ];
 
-<!-- REGISTROS -->
-<div id="registrosTab" class="registros-tab">
-  <h6>Registros</h6>
-  <ul>
-    <li>MIS ARCHIVOS</li>
-    <li>ACTUALIZAR</li>
-    <li>REPORTES (0)</li>
-    <li>REGISTROS (0)</li>
-    <li>BUSCAR</li>
-    <li>NUEVO INFORME</li>
-    <li>NUEVO REGISTRO</li>
-    <li>PANEL SUPERVISOR</li>
-  </ul>
-</div>
+    const groups = [
+      { group: 'Patrulla Norte', members: 3 },
+    ];
 
-<!-- MODAL NOT SET -->
-<div id="modalNotSet">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-    <span style="font-weight:bold; font-size:16px;">Modificar identificador: <span id="idUnidadNotSet">NOT SET</span></span>
-    <div>
-      <button onclick="cerrarModal()" style="background:none; border:none; color:white; font-size:16px;">X</button>
-    </div>
-  </div>
-  <hr style="border-color:#444;">
-  <div style="display:flex; gap:10px; flex-wrap:wrap;">
-    <div style="flex:1 1 48%;">
-      <label>Número de unidad</label>
-      <input id="inputNumeroUnidad" type="text" class="form-control">
-      <label>Nombre</label>
-      <input id="inputNombreUnidad" type="text" class="form-control">
-      <label>Rango</label>
-      <input id="inputRangoUnidad" type="text" class="form-control">
-      <label>Estatus</label>
-      <select id="selectEstatusUnidad" class="form-control">
-        <option value="DISPONIBLE">DISPONIBLE</option>
-        <option value="OCUPADO">OCUPADO</option>
-      </select>
-      <label>Ubicación</label>
-      <input id="inputUbicacionUnidad" type="text" class="form-control">
-    </div>
-    <div style="flex:1 1 48%;">
-      <label>Agencia</label>
-      <select id="selectAgenciaModal" class="form-control">
-        <option value="">Seleccionar</option>
-        <option value="policia">Policía</option>
-        <option value="bomberos">Bomberos</option>
-        <option value="samu">SAMU</option>
-      </select>
-      <label>Departamento</label>
-      <select id="selectDepartamentoModal" class="form-control">
-        <option value="">Seleccionar</option>
-      </select>
-      <label>Subdivisión</label>
-      <select id="selectSubdivisionModal" class="form-control">
-        <option value="">Seleccionar</option>
-      </select>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button onclick="guardarModal()" class="btn btn-success">Guardar</button>
-    <button onclick="cerrarModal()" class="btn btn-secondary">Cerrar</button>
-  </div>
-</div>
+    const emergencies = [
+      { caller: 'Jane Doe', location: 'Vinewood', type: 'Robo', status: 'Pendiente' },
+    ];
 
-<script>
-// Datos de unidades y llamadas
-let unidades = JSON.parse(localStorage.getItem("unidades")||"[]");
-let llamadas = JSON.parse(localStorage.getItem("llamadas")||"[]");
-let unidadSeleccionada = null;
+    const activeCalls = [
+      { call: 'Robo en Progress', units: 'LSPD 1, LSPD 2', status: 'En progreso' },
+    ];
 
-// Agencias y departamentos con subdivisiones
-const agenciaDepartamento = {
-  "policia": { "Policía Nacional":["Valencia","Alicante"], "Guardia Civil":["Valencia","Castellón"] },
-  "bomberos": { "Bomberos":["Central","Sur"], "UME":["Central"] },
-  "samu": { "SAMU":["Central","Valencia"] }
-};
+    // Función para renderizar tablas
+    function renderTable(tableId, data, columns) {
+      const tbody = document.getElementById(tableId).querySelector('tbody');
+      tbody.innerHTML = '';
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        columns.forEach(col => {
+          const td = document.createElement('td');
+          if(col === 'status' && item.statusClass){
+            const span = document.createElement('span');
+            span.textContent = item[col];
+            span.className = 'badge ' + item.statusClass;
+            td.appendChild(span);
+          } else {
+            td.textContent = item[col];
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
 
-// Funciones
-function renderUnidades(){
-  const lista = document.getElementById("listaUnidades");
-  lista.innerHTML="";
-  unidades.forEach((u,i)=>{
-    const tr=document.createElement("tr");
-    tr.className="unidad-item";
-    tr.dataset.index=i;
-    tr.innerHTML=`<td>${u.numero||"NOT SET"}</td><td>${u.nombre||""}</td><td>${u.aop||""}</td><td>${u.ubicacion||""}</td><td>${u.estatus||""}</td>`;
-    tr.onclick=()=>abrirModal(u,i);
-    lista.appendChild(tr);
-  });
-}
-function abrirModal(u,index){
-  unidadSeleccionada=index;
-  document.getElementById("modalNotSet").style.display="block";
-  document.getElementById("idUnidadNotSet").innerText=u.numero||"NOT SET";
-  document.getElementById("inputNumeroUnidad").value=u.numero||"";
-  document.getElementById("inputNombreUnidad").value=u.nombre||"";
-  document.getElementById("inputRangoUnidad").value=u.rango||"";
-  document.getElementById("inputUbicacionUnidad").value=u.ubicacion||"";
-  document.getElementById("selectEstatusUnidad").value=u.estatus||"DISPONIBLE";
-  document.getElementById("selectAgenciaModal").value=u.agencia||"";
-  actualizarDepartamentos();
-  document.getElementById("selectDepartamentoModal").value=u.departamento||"";
-  actualizarSubdivisiones();
-  document.getElementById("selectSubdivisionModal").value=u.subdivision||"";
-}
-function cerrarModal(){ document.getElementById("modalNotSet").style.display="none"; }
-function guardarModal(){
-  if(unidadSeleccionada!==null){
-    const u = unidades[unidadSeleccionada];
-    u.numero=document.getElementById("inputNumeroUnidad").value;
-    u.nombre=document.getElementById("inputNombreUnidad").value;
-    u.rango=document.getElementById("inputRangoUnidad").value;
-    u.ubicacion=document.getElementById("inputUbicacionUnidad").value;
-    u.estatus=document.getElementById("selectEstatusUnidad").value;
-    u.agencia=document.getElementById("selectAgenciaModal").value;
-    u.departamento=document.getElementById("selectDepartamentoModal").value;
-    u.subdivision=document.getElementById("selectSubdivisionModal").value;
-    localStorage.setItem("unidades",JSON.stringify(unidades));
-    renderUnidades();
-    cerrarModal();
-  }
-}
+    function renderAll() {
+      renderTable('unitsTable', units, ['unit','name','aop','location','agency','department','subdivision','rank','status']);
+      renderTable('groupsTable', groups, ['group','members']);
+      renderTable('emergencyTable', emergencies, ['caller','location','type','status']);
+      renderTable('activeCallsTable', activeCalls, ['call','units','status']);
+    }
 
-// Dropdown dependientes
-function actualizarDepartamentos(){
-  const agencia=document.getElementById("selectAgenciaModal").value;
-  const depSelect=document.getElementById("selectDepartamentoModal");
-  depSelect.innerHTML="<option value=''>Seleccionar</option>";
-  if(agenciaDepartamento[agencia]){
-    Object.keys(agenciaDepartamento[agencia]).forEach(d=>{
-      const opt=document.createElement("option");
-      opt.value=d; opt.text=d;
-      depSelect.appendChild(opt);
-    });
-  }
-  actualizarSubdivisiones();
-}
-function actualizarSubdivisiones(){
-  const agencia=document.getElementById("selectAgenciaModal").value;
-  const depto=document.getElementById("selectDepartamentoModal").value;
-  const subSelect=document.getElementById("selectSubdivisionModal");
-  subSelect.innerHTML="<option value=''>Seleccionar</option>";
-  if(agenciaDepartamento[agencia] && agenciaDepartamento[agencia][depto]){
-    agenciaDepartamento[agencia][depto].forEach(s=>{
-      const opt=document.createElement("option");
-      opt.value=s; opt.text=s;
-      subSelect.appendChild(opt);
-    });
-  }
-}
+    function addOperator() {
+      const name = document.getElementById('operatorName').value;
+      const rank = document.getElementById('operatorRank').value;
+      const dept = document.getElementById('operatorDept').value;
+      if(name && rank && dept){
+        units.push({ unit: `Nuevo ${units.length+1}`, name, aop: '-', location: '-', agency: '-', department: dept, subdivision: '-', rank, status: 'Activo', statusClass: 'green' });
+        document.getElementById('operatorName').value = '';
+        document.getElementById('operatorRank').value = '';
+        document.getElementById('operatorDept').value = '';
+        renderAll();
+      }
+    }
 
-// Inicializar
-document.getElementById("selectAgenciaModal").onchange=actualizarDepartamentos;
-document.getElementById("selectDepartamentoModal").onchange=actualizarSubdivisiones;
-
-// Botón NOT SET
-document.getElementById("btnNotSet").onclick=()=>{
-  abrirModal({numero:"NOT SET", nombre:"", rango:"", ubicacion:"", estatus:"DISPONIBLE", agencia:"", departamento:"", subdivision:""},null);
-}
-
-// Formulario nuevo operador
-document.getElementById("formNuevoOperador").onsubmit=(e)=>{
-  e.preventDefault();
-  unidades.push({
-    numero:document.getElementById("numeroUnidad").value||"NOT SET",
-    nombre:document.getElementById("nombreUnidad").value,
-    rango:document.getElementById("rangoUnidad").value,
-    ubicacion:document.getElementById("ubicacionUnidad").value,
-    estatus:document.getElementById("estatusUnidad").value,
-    agencia:document.getElementById("agenciaUnidad").value,
-    departamento:document.getElementById("departamentoUnidad").value,
-    subdivision:document.getElementById("subdivisionUnidad").value,
-    aop:""
-  });
-  localStorage.setItem("unidades",JSON.stringify(unidades));
-  renderUnidades();
-  e.target.reset();
-}
-
-// Render inicial
-renderUnidades();
-</script>
-
+    // Render inicial
+    renderAll();
+  </script>
 </body>
 </html>
