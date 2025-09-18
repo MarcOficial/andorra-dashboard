@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Operador 112 - Spanish City RP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<nav class="navbar navbar-expand-lg shadow p-3">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Spanish City RP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana">Carpeta Ciudadana</a></li>
+        <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
+        <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
+        <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
+        <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+<div class="container my-5 text-center">
+  <h1>Panel Operador 112</h1>
+  <h5 class="text-muted">Gestiona todas las emergencias y unidades</h5>
+
+  <!-- Crear emergencia manual -->
+  <div class="card shadow-lg p-4 mb-4">
+    <h4>Crear emergencia manual</h4>
+    <input type="text" id="emergenciaTitulo" class="form-control mb-2" placeholder="Título de la emergencia">
+    <textarea id="emergenciaDescripcion" class="form-control mb-2" placeholder="Descripción de la emergencia"></textarea>
+    <select id="emergenciaCorporacion" class="form-select mb-2">
+      <option value="">Selecciona corporación</option>
+      <option value="CNP">CNP</option>
+      <option value="GC">GC</option>
+      <option value="Bomberos">Bomberos</option>
+      <option value="SAMU">SAMU</option>
+    </select>
+    <button class="btn btn-success w-100 mb-2" id="crearEmergenciaBtn">Crear Emergencia</button>
+  </div>
+
+  <!-- Solicitudes activas -->
+  <h4 class="mt-4">Solicitudes activas</h4>
+  <div id="alertasDespachadorContainer" class="row g-3 mb-4"></div>
+
+  <!-- Gestión rápida -->
+  <h4>Gestión rápida</h4>
+  <div class="d-flex flex-wrap gap-2 mb-4 justify-content-center">
+    <a class="btn btn-primary" href="multar.html">Registrar Multa</a>
+    <a class="btn btn-primary" href="arrestar.html">Registrar Arresto</a>
+    <a class="btn btn-primary" href="agregar-historial-medico.html">Historial Médico</a>
+    <a class="btn btn-primary" href="mis-propiedades.html">Documentación Ciudadana</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Modo oscuro
+function aplicarModo(){
+  if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.body.classList.add('modo-oscuro');
+  } else {
+    document.body.classList.remove('modo-oscuro');
+  }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+aplicarModo();
+
+// Operador 112
+const alertasContainerDespachador = document.getElementById('alertasDespachadorContainer');
+const crearEmergenciaBtn = document.getElementById('crearEmergenciaBtn');
+
+function cargarAlertasDespachador() {
+  let alertas = JSON.parse(localStorage.getItem('alertas')) || [];
+  alertasContainerDespachador.innerHTML = '';
+
+  if(alertas.length === 0){
+    alertasContainerDespachador.innerHTML = `<p class="text-center fw-semibold fs-5 text-muted">No hay alertas</p>`;
+    return;
+  }
+
+  alertas.forEach((a, index) => {
+    const card = document.createElement('div');
+    card.className = 'col-12';
+    card.innerHTML = `
+      <div class="card shadow-sm p-3">
+        <h5>${a.corporacion} - ${a.titulo}</h5>
+        <p><strong>Reportado por:</strong> ${a.reportadoPor}</p>
+        <p>${a.descripcion}</p>
+        <div class="d-flex gap-2">
+          <button class="btn btn-success flex-fill">Aceptar</button>
+          <button class="btn btn-danger flex-fill">Rechazar</button>
+          <select class="form-select flex-fill">
+            <option value="">Asignar Unidad</option>
+            <option value="Unidad 1">Unidad 1</option>
+            <option value="Unidad 2">Unidad 2</option>
+            <option value="Unidad 3">Unidad 3</option>
+          </select>
+        </div>
+      </div>
+    `;
+    alertasContainerDespachador.appendChild(card);
+
+    card.querySelector('.btn-success').addEventListener('click', () => {
+      if(a.corporacion === "Bomberos"){
+        let incendios = JSON.parse(localStorage.getItem('incendios')) || [];
+        incendios.push({...a});
+        localStorage.setItem('incendios', JSON.stringify(incendios));
+      }
+      alertas.splice(index, 1);
+      localStorage.setItem('alertas', JSON.stringify(alertas));
+      cargarAlertasDespachador();
+    });
+
+    card.querySelector('.btn-danger').addEventListener('click', () => {
+      alertas.splice(index, 1);
+      localStorage.setItem('alertas', JSON.stringify(alertas));
+      cargarAlertasDespachador();
+    });
+  });
+}
+
+// Crear emergencia manual
+crearEmergenciaBtn.addEventListener('click', () => {
+  const titulo = document.getElementById('emergenciaTitulo').value.trim();
+  const descripcion = document.getElementById('emergenciaDescripcion').value.trim();
+  const corporacion = document.getElementById('emergenciaCorporacion').value;
+
+  if(!titulo || !descripcion || !corporacion){
+    alert("Rellena todos los campos para crear la emergencia.");
+    return;
+  }
+
+  let alertas = JSON.parse(localStorage.getItem('alertas')) || [];
+  alertas.push({titulo, descripcion, corporacion, reportadoPor:"Despachador"});
+  localStorage.setItem('alertas', JSON.stringify(alertas));
+  cargarAlertasDespachador();
+
+  document.getElementById('emergenciaTitulo').value = '';
+  document.getElementById('emergenciaDescripcion').value = '';
+  document.getElementById('emergenciaCorporacion').value = '';
+  alert("✅ Emergencia creada");
+});
+
+// Cargar alertas al abrir la página
+document.addEventListener('DOMContentLoaded', cargarAlertasDespachador);
+</script>
+</body>
+</html>
