@@ -30,7 +30,7 @@
 <div class="container my-5">
   <div class="text-center mb-5">
     <h1>Solicitudes de Emergencia</h1>
-    <h5 class="text-muted">Lista de alertas recibidas a través del 112</h5>
+    <h5 class="text-muted">Gestiona las alertas enviadas por ciudadanos</h5>
   </div>
 
   <div id="solicitudesContainer" class="row g-4 justify-content-center"></div>
@@ -38,7 +38,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Obtener todas las alertas del localStorage
+// Obtener alertas de localStorage
 let alertas = JSON.parse(localStorage.getItem('alertas')) || [];
 const container = document.getElementById('solicitudesContainer');
 
@@ -52,7 +52,7 @@ function mostrarSolicitudes() {
     return;
   }
 
-  alertas.forEach(a => {
+  alertas.forEach((a, index) => {
     const card = document.createElement('div');
     card.className = 'col-12 col-md-6';
     card.innerHTML = `
@@ -62,11 +62,34 @@ function mostrarSolicitudes() {
           <p class="card-text">Corporación: <span class="fw-semibold">${a.corporacion}</span></p>
           <p class="card-text">Reportado por: ${a.reportadoPor}</p>
           <p class="card-text">Descripción: ${a.descripcion}</p>
-          <a href="#" class="btn btn-primary w-100">Atender Emergencia</a>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-success flex-fill">Aceptar</button>
+            <button class="btn btn-danger flex-fill">Rechazar</button>
+          </div>
         </div>
       </div>
     `;
     container.appendChild(card);
+
+    // Botón aceptar
+    card.querySelector('.btn-success').addEventListener('click', () => {
+      if(a.corporacion === "Bomberos"){
+        let incendios = JSON.parse(localStorage.getItem('incendios')) || [];
+        incendios.push({...a});
+        localStorage.setItem('incendios', JSON.stringify(incendios));
+      }
+      // Eliminar de solicitudes
+      alertas.splice(index, 1);
+      localStorage.setItem('alertas', JSON.stringify(alertas));
+      mostrarSolicitudes();
+    });
+
+    // Botón rechazar
+    card.querySelector('.btn-danger').addEventListener('click', () => {
+      alertas.splice(index, 1);
+      localStorage.setItem('alertas', JSON.stringify(alertas));
+      mostrarSolicitudes();
+    });
   });
 }
 
