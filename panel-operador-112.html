@@ -81,25 +81,25 @@
       <div class="col-md-3">
         <div class="card p-3 text-center status-active">
           <h5>Operadores Activos</h5>
-          <h2 id="operadores-activos">0</h2>
+          <h2 id="operadores-activos">—</h2>
         </div>
       </div>
       <div class="col-md-3">
         <div class="card p-3 text-center status-busy">
           <h5>Llamadas en Curso</h5>
-          <h2 id="llamadas-en-curso">0</h2>
+          <h2 id="llamadas-en-curso">—</h2>
         </div>
       </div>
       <div class="col-md-3">
         <div class="card p-3 text-center status-offline">
           <h5>Operadores Fuera de Servicio</h5>
-          <h2 id="operadores-offline">0</h2>
+          <h2 id="operadores-offline">—</h2>
         </div>
       </div>
       <div class="col-md-3">
         <div class="card p-3 text-center" style="background-color: #17a2b8; color:white;">
           <h5>Llamadas Pendientes</h5>
-          <h2 id="llamadas-pendientes">0</h2>
+          <h2 id="llamadas-pendientes">—</h2>
         </div>
       </div>
     </div>
@@ -164,10 +164,10 @@
     let llamadasPend = 0;
 
     function actualizarContadores() {
-      operadoresActivos.textContent = totalActivos;
-      operadoresOffline.textContent = totalOffline;
-      llamadasEnCurso.textContent = llamadasActuales;
-      llamadasPendientes.textContent = llamadasPend;
+      operadoresActivos.textContent = totalActivos > 0 ? totalActivos : '—';
+      operadoresOffline.textContent = totalOffline > 0 ? totalOffline : '—';
+      llamadasEnCurso.textContent = llamadasActuales > 0 ? llamadasActuales : '—';
+      llamadasPendientes.textContent = llamadasPend > 0 ? llamadasPend : '—';
     }
 
     form.addEventListener('submit', (e) => {
@@ -175,7 +175,7 @@
       const nombre = form[0].value;
       const tipo = form[1].value;
 
-      // Si es la fila de "No hay operadores", eliminarla
+      // Eliminar fila de mensaje si existe
       const emptyRow = tabla.querySelector('.empty-msg');
       if (emptyRow) emptyRow.remove();
 
@@ -194,6 +194,9 @@
       form.reset();
       alert('Operador registrado correctamente');
     });
+
+    // Inicializar contadores en "—"
+    actualizarContadores();
   </script>
 
 </body>
