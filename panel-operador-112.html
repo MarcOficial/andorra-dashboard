@@ -3,156 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Operador 112 - Spanish City RP</title>
+<title>Panel Operador 112 - Mini CAD</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  .mini-cad { height: 80vh; position: relative; }
+  .mini-cad .left, .mini-cad .right { overflow-y: auto; height: 100%; }
+  .section { margin-bottom: 1rem; }
+  .section h5 { border-bottom: 1px solid #ccc; padding-bottom: 0.25rem; margin-bottom: 0.5rem; }
+  .table-sm td, .table-sm th { padding: 0.25rem; }
+  .registros-panel {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 50%;
+    background: #f8f9fa;
+    border-top: 2px solid #ccc;
+    display: none;
+    z-index: 10;
+    overflow-y: auto;
+  }
+</style>
 </head>
 <body>
 <header>
 <nav class="navbar navbar-expand-lg shadow p-3">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Spanish City RP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana">Carpeta Ciudadana</a></li>
-        <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
-        <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
-        <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
-        <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
-      </ul>
-    </div>
   </div>
 </nav>
 </header>
 
-<div class="container my-5 text-center">
-  <h1>Panel Operador 112</h1>
-  <h5 class="text-muted">Gestiona todas las emergencias y unidades</h5>
+<div class="container my-4">
+  <h1 class="text-center mb-4">Panel Operador 112 - Mini CAD</h1>
+  <div class="row mini-cad shadow-lg rounded">
 
-  <!-- Crear emergencia manual -->
-  <div class="card shadow-lg p-4 mb-4">
-    <h4>Crear emergencia manual</h4>
-    <input type="text" id="emergenciaTitulo" class="form-control mb-2" placeholder="Título de la emergencia">
-    <textarea id="emergenciaDescripcion" class="form-control mb-2" placeholder="Descripción de la emergencia"></textarea>
-    <select id="emergenciaCorporacion" class="form-select mb-2">
-      <option value="">Selecciona corporación</option>
-      <option value="CNP">CNP</option>
-      <option value="GC">GC</option>
-      <option value="Bomberos">Bomberos</option>
-      <option value="SAMU">SAMU</option>
-    </select>
-    <button class="btn btn-success w-100 mb-2" id="crearEmergenciaBtn">Crear Emergencia</button>
+    <!-- Columna izquierda -->
+    <div class="col-md-6 border-end left p-3">
+      
+      <div class="section">
+        <h5>Unidades activas</h5>
+        <ul id="unidadesActivas" class="list-group list-group-flush"></ul>
+      </div>
+
+      <div class="section">
+        <h5>Grupo de unidades</h5>
+        <ul id="grupoUnidades" class="list-group list-group-flush"></ul>
+      </div>
+
+      <div class="section">
+        <h5>Llamadas activas</h5>
+        <ul id="llamadasActivas" class="list-group list-group-flush"></ul>
+      </div>
+
+      <!-- Botón Registros -->
+      <div class="position-absolute bottom-0 start-0 mb-3 ms-3">
+        <button class="btn btn-primary btn-sm" id="toggleRegistros">📑 Registros</button>
+      </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="col-md-6 right p-3">
+      <div class="section">
+        <h5>Nuevo Operador</h5>
+        <input type="text" id="nuevoOperador" class="form-control mb-2" placeholder="Nombre operador">
+        <button class="btn btn-success w-100" id="crearOperador">Crear Operador</button>
+      </div>
+
+      <div class="section">
+        <h5>Unidades</h5>
+        <table class="table table-sm table-bordered">
+          <thead>
+            <tr>
+              <th>Prioridad</th>
+              <th>Dirección Postal</th>
+              <th>Título de llamada</th>
+              <th>Código</th>
+              <th>Unidad Primario</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody id="tablaUnidades"></tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h5>Llamadas activas & Historial</h5>
+        <ul id="historialLlamadas" class="list-group list-group-flush"></ul>
+      </div>
+    </div>
   </div>
 
-  <!-- Solicitudes activas -->
-  <h4 class="mt-4">Solicitudes activas</h4>
-  <div id="alertasDespachadorContainer" class="row g-3 mb-4"></div>
-
-  <!-- Gestión rápida -->
-  <h4>Gestión rápida</h4>
-  <div class="d-flex flex-wrap gap-2 mb-4 justify-content-center">
-    <a class="btn btn-primary" href="multar.html">Registrar Multa</a>
-    <a class="btn btn-primary" href="arrestar.html">Registrar Arresto</a>
-    <a class="btn btn-primary" href="agregar-historial-medico.html">Historial Médico</a>
-    <a class="btn btn-primary" href="mis-propiedades.html">Documentación Ciudadana</a>
+  <!-- Panel Registros oculto -->
+  <div class="registros-panel p-3 shadow-lg" id="panelRegistros">
+    <ul class="nav nav-tabs" id="registrosTabs" role="tablist">
+      <li class="nav-item"><a class="nav-link active" id="archivos-tab" data-bs-toggle="tab" href="#archivos" role="tab">Mis Archivos</a></li>
+      <li class="nav-item"><a class="nav-link" id="reportes-tab" data-bs-toggle="tab" href="#reportes" role="tab">Reportes (0)</a></li>
+      <li class="nav-item"><a class="nav-link" id="registros-tab" data-bs-toggle="tab" href="#registros" role="tab">Registros (0)</a></li>
+      <li class="nav-item"><a class="nav-link" id="supervisor-tab" data-bs-toggle="tab" href="#supervisor" role="tab">Panel Supervisor</a></li>
+    </ul>
+    <div class="tab-content mt-3">
+      <div class="tab-pane fade show active" id="archivos" role="tabpanel">
+        <input type="text" class="form-control mb-2" placeholder="Buscar archivo...">
+        <button class="btn btn-primary btn-sm mb-2">Nuevo Informe</button>
+        <button class="btn btn-secondary btn-sm mb-2">Nuevo Registro</button>
+      </div>
+      <div class="tab-pane fade" id="reportes" role="tabpanel">
+        <p>No hay reportes pendientes.</p>
+      </div>
+      <div class="tab-pane fade" id="registros" role="tabpanel">
+        <p>No hay registros creados.</p>
+      </div>
+      <div class="tab-pane fade" id="supervisor" role="tabpanel">
+        <p>Acceso a supervisión y control de operadores.</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Modo oscuro
-function aplicarModo(){
-  if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-    document.body.classList.add('modo-oscuro');
-  } else {
-    document.body.classList.remove('modo-oscuro');
-  }
+// Datos de prueba
+let unidadesActivas = ["Unidad Bomberos 1", "CNP 3", "SAMU 2"];
+let grupoUnidades = ["Grupo A", "Grupo B"];
+let llamadasActivas = [{titulo:"Incendio", unidad:"Bomberos", descripcion:"Fuego en edificio"}];
+let historial = [{titulo:"Robo", unidad:"CNP", descripcion:"Robo en tienda"}];
+
+function actualizarMiniCAD(){
+  document.getElementById("unidadesActivas").innerHTML = unidadesActivas.map(u=>`<li class="list-group-item">${u}</li>`).join("");
+  document.getElementById("grupoUnidades").innerHTML = grupoUnidades.map(g=>`<li class="list-group-item">${g}</li>`).join("");
+  document.getElementById("llamadasActivas").innerHTML = llamadasActivas.map(l=>`<li class="list-group-item">${l.titulo} - ${l.unidad}</li>`).join("");
+  document.getElementById("tablaUnidades").innerHTML = llamadasActivas.map(l=>`
+    <tr>
+      <td>Alta</td><td>12345</td><td>${l.titulo}</td><td>001</td><td>${l.unidad}</td><td>${l.descripcion}</td>
+    </tr>`).join("");
+  document.getElementById("historialLlamadas").innerHTML = historial.map(h=>`<li class="list-group-item">${h.titulo} - ${h.unidad}</li>`).join("");
 }
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
-aplicarModo();
+actualizarMiniCAD();
 
-// Operador 112
-const alertasContainerDespachador = document.getElementById('alertasDespachadorContainer');
-const crearEmergenciaBtn = document.getElementById('crearEmergenciaBtn');
-
-function cargarAlertasDespachador() {
-  let alertas = JSON.parse(localStorage.getItem('alertas')) || [];
-  alertasContainerDespachador.innerHTML = '';
-
-  if(alertas.length === 0){
-    alertasContainerDespachador.innerHTML = `<p class="text-center fw-semibold fs-5 text-muted">No hay alertas</p>`;
-    return;
-  }
-
-  alertas.forEach((a, index) => {
-    const card = document.createElement('div');
-    card.className = 'col-12';
-    card.innerHTML = `
-      <div class="card shadow-sm p-3">
-        <h5>${a.corporacion} - ${a.titulo}</h5>
-        <p><strong>Reportado por:</strong> ${a.reportadoPor}</p>
-        <p>${a.descripcion}</p>
-        <div class="d-flex gap-2">
-          <button class="btn btn-success flex-fill">Aceptar</button>
-          <button class="btn btn-danger flex-fill">Rechazar</button>
-          <select class="form-select flex-fill">
-            <option value="">Asignar Unidad</option>
-            <option value="Unidad 1">Unidad 1</option>
-            <option value="Unidad 2">Unidad 2</option>
-            <option value="Unidad 3">Unidad 3</option>
-          </select>
-        </div>
-      </div>
-    `;
-    alertasContainerDespachador.appendChild(card);
-
-    card.querySelector('.btn-success').addEventListener('click', () => {
-      if(a.corporacion === "Bomberos"){
-        let incendios = JSON.parse(localStorage.getItem('incendios')) || [];
-        incendios.push({...a});
-        localStorage.setItem('incendios', JSON.stringify(incendios));
-      }
-      alertas.splice(index, 1);
-      localStorage.setItem('alertas', JSON.stringify(alertas));
-      cargarAlertasDespachador();
-    });
-
-    card.querySelector('.btn-danger').addEventListener('click', () => {
-      alertas.splice(index, 1);
-      localStorage.setItem('alertas', JSON.stringify(alertas));
-      cargarAlertasDespachador();
-    });
-  });
-}
-
-// Crear emergencia manual
-crearEmergenciaBtn.addEventListener('click', () => {
-  const titulo = document.getElementById('emergenciaTitulo').value.trim();
-  const descripcion = document.getElementById('emergenciaDescripcion').value.trim();
-  const corporacion = document.getElementById('emergenciaCorporacion').value;
-
-  if(!titulo || !descripcion || !corporacion){
-    alert("Rellena todos los campos para crear la emergencia.");
-    return;
-  }
-
-  let alertas = JSON.parse(localStorage.getItem('alertas')) || [];
-  alertas.push({titulo, descripcion, corporacion, reportadoPor:"Despachador"});
-  localStorage.setItem('alertas', JSON.stringify(alertas));
-  cargarAlertasDespachador();
-
-  document.getElementById('emergenciaTitulo').value = '';
-  document.getElementById('emergenciaDescripcion').value = '';
-  document.getElementById('emergenciaCorporacion').value = '';
-  alert("✅ Emergencia creada");
+// Toggle del panel registros
+document.getElementById("toggleRegistros").addEventListener("click",()=>{
+  const panel = document.getElementById("panelRegistros");
+  panel.style.display = (panel.style.display === "block") ? "none" : "block";
 });
 
-// Cargar alertas al abrir la página
-document.addEventListener('DOMContentLoaded', cargarAlertasDespachador);
+// Crear operador
+document.getElementById("crearOperador").addEventListener("click",()=>{
+  let nombre = document.getElementById("nuevoOperador").value.trim();
+  if(nombre){ alert("Operador "+nombre+" creado"); document.getElementById("nuevoOperador").value=""; }
+});
 </script>
 </body>
 </html>
