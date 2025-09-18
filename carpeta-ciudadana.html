@@ -11,13 +11,13 @@
 <header>
 <nav class="navbar navbar-expand-lg shadow p-3">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Spanish City RP</a>
+    <a class="navbar-brand fw-bold fs-4" href="dashboard">⛰️ Spanish City RP</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana.html">Carpeta Ciudadana</a></li>
+        <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana">Carpeta Ciudadana</a></li>
         <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
         <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
         <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
@@ -76,14 +76,17 @@
       </div>
     </div>
 
-    <!-- Emergencias 112 -->
-<div class="col-12 col-sm-6 col-md-5">
-  <div class="card option-card text-center shadow-lg h-100">
-    <div class="card-body py-4">
-      <h4 class="card-title fw-bold mb-3">Emergencias 112</h4>
-      <p class="card-text mb-4">Selecciona la corporación y describe lo sucedido.</p>
-      <button class="btn btn-danger btn-lg px-4" data-bs-toggle="modal" data-bs-target="#alertaModal">112</button>
+    <!-- Emergencias 112 Mejorado -->
+    <div class="col-12 col-sm-6 col-md-5">
+      <div class="card option-card text-center shadow-lg h-100">
+        <div class="card-body py-4">
+          <h4 class="card-title fw-bold mb-3">Emergencias 112</h4>
+          <p class="card-text mb-4">Selecciona la corporación y describe lo sucedido.</p>
+          <button class="btn btn-danger btn-lg px-4" data-bs-toggle="modal" data-bs-target="#alertaModal">112</button>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -128,6 +131,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 let corporacionSeleccionada = '';
 
@@ -179,7 +183,17 @@ function enviarAlerta() {
     modal.hide();
   }, 1500);
 }
-</script>
 
+// Modo oscuro
+function aplicarModo(){
+  if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.body.classList.add('modo-oscuro');
+  } else {
+    document.body.classList.remove('modo-oscuro');
+  }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+aplicarModo();
+</script>
 </body>
 </html>
