@@ -45,7 +45,7 @@
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
   }
 
   .status-button button:hover {
@@ -63,7 +63,7 @@
     border-radius: 5px;
     cursor: pointer;
     user-select: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
     min-width: 150px;
     margin: 5px;
   }
@@ -95,6 +95,14 @@
     font-size: 1rem;
     color: #666;
     margin-top: 20px;
+  }
+
+  /* Sección de llamadas y unidades */
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
   }
 </style>
 </head>
@@ -130,26 +138,83 @@
   </div>
 
   <!-- Sección de llamadas -->
+  <div class="section-title">Llamadas</div>
   <div id="callsContainer">
     <p class="no-calls">No hay llamadas</p>
   </div>
 
   <!-- Sección de unidades -->
+  <div class="section-title">Unidades</div>
   <div id="unitsContainer">
-    <!-- Aquí se agregan dinámicamente los chips de unidades -->
+    <p class="no-calls">No hay unidades disponibles</p>
   </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Ejemplo de cómo agregar chips dinámicamente (puedes conectarlo a tu backend)
+  const statusButton = document.getElementById('statusButton');
+  let status = 'NOT SET';
+
+  // Estados posibles
+  const statusColors = {
+    'NOT SET': '#26a69a',
+    'AVAILABLE': '#4caf50',
+    'BUSY': '#f44336',
+    'OFF DUTY': '#9e9e9e'
+  };
+
+  // Cambiar estado al hacer clic
+  statusButton.addEventListener('click', () => {
+    if (status === 'NOT SET') status = 'AVAILABLE';
+    else if (status === 'AVAILABLE') status = 'BUSY';
+    else if (status === 'BUSY') status = 'OFF DUTY';
+    else status = 'NOT SET';
+
+    statusButton.textContent = status;
+    statusButton.style.backgroundColor = statusColors[status];
+  });
+
+  const callsContainer = document.getElementById('callsContainer');
   const unitsContainer = document.getElementById('unitsContainer');
 
-  // Función para limpiar y mostrar unidades
-  function showUnits(units) {
-    unitsContainer.innerHTML = ''; // Limpiar contenido
+  // Función para mostrar llamadas
+  function showCalls(calls) {
+    callsContainer.innerHTML = '';
+    if (calls.length === 0) {
+      const p = document.createElement('p');
+      p.className = 'no-calls';
+      p.textContent = 'No hay llamadas';
+      callsContainer.appendChild(p);
+      return;
+    }
 
+    calls.forEach(call => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.style.backgroundColor = call.color || '#26a69a';
+
+      const content = document.createElement('div');
+      content.className = 'chip-content';
+
+      const title = document.createElement('span');
+      title.className = 'chip-title';
+      title.textContent = call.name;
+
+      const subtitle = document.createElement('span');
+      subtitle.className = 'chip-subtitle';
+      subtitle.textContent = call.location || 'Central';
+
+      content.appendChild(title);
+      content.appendChild(subtitle);
+      chip.appendChild(content);
+      callsContainer.appendChild(chip);
+    });
+  }
+
+  // Función para mostrar unidades
+  function showUnits(units) {
+    unitsContainer.innerHTML = '';
     if (units.length === 0) {
       const p = document.createElement('p');
       p.className = 'no-calls';
@@ -182,6 +247,7 @@
   }
 
   // Inicialmente vacío
+  showCalls([]);
   showUnits([]);
 </script>
 
