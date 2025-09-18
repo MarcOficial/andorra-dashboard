@@ -38,21 +38,19 @@
 <script>
 // Obtener incendios de localStorage
 let incendios = JSON.parse(localStorage.getItem('incendios')) || [];
-
 const container = document.getElementById('incendiosContainer');
 
 function mostrarIncendios() {
   container.innerHTML = '';
-  const bomberos = incendios.filter(i => i.corporacion === 'Bomberos');
 
-  if(bomberos.length === 0){
+  if(incendios.length === 0){
     container.innerHTML = `<div class="col-12 text-center">
       <p class="fw-semibold fs-5 text-muted">No hay incendios activos</p>
     </div>`;
     return;
   }
 
-  bomberos.forEach(i => {
+  incendios.forEach((i, index) => {
     const card = document.createElement('div');
     card.className = 'col-12 col-md-6';
     card.innerHTML = `
@@ -62,11 +60,26 @@ function mostrarIncendios() {
           <p class="card-text">Estado: <span class="fw-semibold text-danger">Activo</span></p>
           <p class="card-text">Reportado por: ${i.reportadoPor}</p>
           <p class="card-text">Descripción: ${i.descripcion}</p>
-          <a href="#" class="btn btn-danger w-100">Responder</a>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-primary flex-fill">Responder</button>
+            <button class="btn btn-danger flex-fill">Finalizar Llamada</button>
+          </div>
         </div>
       </div>
     `;
     container.appendChild(card);
+
+    // Botón Responder: solo muestra confirmación
+    card.querySelector('.btn-primary').addEventListener('click', () => {
+      alert(`✅ Estás respondiendo a la llamada de: ${i.reportadoPor}`);
+    });
+
+    // Botón Finalizar Llamada: elimina del array y actualiza localStorage
+    card.querySelector('.btn-danger').addEventListener('click', () => {
+      incendios.splice(index, 1);
+      localStorage.setItem('incendios', JSON.stringify(incendios));
+      mostrarIncendios();
+    });
   });
 }
 
