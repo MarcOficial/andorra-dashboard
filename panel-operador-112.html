@@ -2,221 +2,199 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Panel Operador 112</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Operador 112 - Spanish City RP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #1b1b1b;
-      color: #fff;
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .container {
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+    .navbar {
+      background-color: #343a40 !important;
     }
-    h2 {
-      margin-top: 0;
-      color: #00ff99;
+    .navbar .nav-link {
+      color: #ffffff !important;
+    }
+    .navbar .nav-link:hover {
+      color: #ffc107 !important;
     }
     .card {
-      background-color: #2a2a2a;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .status-active {
+      background-color: #28a745;
+      color: white;
+    }
+    .status-busy {
+      background-color: #ffc107;
+      color: white;
+    }
+    .status-offline {
+      background-color: #dc3545;
+      color: white;
     }
     table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #444;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
     }
     th {
-      color: #00ff99;
+      background-color: #343a40;
+      color: white;
     }
-    .badge {
-      padding: 3px 8px;
-      border-radius: 4px;
-      color: #fff;
-      font-size: 12px;
-    }
-    .green { background-color: #28a745; }
-    .red { background-color: #dc3545; }
-    .yellow { background-color: #ffc107; color: #000; }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-      border: none;
-      background-color: #3a3a3a;
-      color: #fff;
-    }
-    button {
-      padding: 10px 15px;
-      background-color: #00ff99;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #000;
-      font-weight: bold;
-    }
-    button:hover {
-      background-color: #00cc77;
+    .empty-msg {
+      text-align: center;
+      padding: 20px;
+      color: #6c757d;
     }
   </style>
 </head>
 <body>
-  <div class="container">
 
-    <!-- Unidades Activas -->
-    <div class="card">
-      <h2>Unidades Activas</h2>
-      <table id="unitsTable">
+  <!-- Navbar estilo Sonoran CAD -->
+  <header>
+    <nav class="navbar navbar-expand-lg shadow p-3">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-4" href="dashboard">⛰️ Spanish City RP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana">Carpeta Ciudadana</a></li>
+            <li class="nav-item"><a class="nav-link" href="panel-policial.html">Panel Policial</a></li>
+            <li class="nav-item"><a class="nav-link" href="panel-medicos.html">Panel Médicos</a></li>
+            <li class="nav-item"><a class="nav-link" href="panel-empresas.html">Panel Empresas</a></li>
+            <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container mt-4">
+
+    <!-- Sección de tarjetas rápidas -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card p-3 text-center status-active">
+          <h5>Operadores Activos</h5>
+          <h2 id="operadores-activos">0</h2>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 text-center status-busy">
+          <h5>Llamadas en Curso</h5>
+          <h2 id="llamadas-en-curso">0</h2>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 text-center status-offline">
+          <h5>Operadores Fuera de Servicio</h5>
+          <h2 id="operadores-offline">0</h2>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3 text-center" style="background-color: #17a2b8; color:white;">
+          <h5>Llamadas Pendientes</h5>
+          <h2 id="llamadas-pendientes">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de unidades activas -->
+    <div class="card mb-4 p-3">
+      <h5 class="mb-3">Unidades Activas</h5>
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th>Unidad</th>
             <th>Nombre</th>
-            <th>AOP</th>
-            <th>Ubicación</th>
-            <th>Agencia</th>
-            <th>Departamento</th>
-            <th>Subdivisión</th>
-            <th>Rango</th>
-            <th>Estatus</th>
+            <th>Tipo Unidad</th>
+            <th>Estado</th>
+            <th>Última Localización</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tabla-unidades">
+          <tr class="empty-msg">
+            <td colspan="4">No hay operadores ni llamadas actualmente</td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Grupos de Unidades -->
-    <div class="card">
-      <h2>Grupos de Unidades</h2>
-      <table id="groupsTable">
-        <thead>
-          <tr>
-            <th>Grupo</th>
-            <th>Miembros</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Llamadas de Emergencia -->
-    <div class="card">
-      <h2>Llamadas de Emergencia</h2>
-      <table id="emergencyTable">
-        <thead>
-          <tr>
-            <th>Llamante</th>
-            <th>Ubicación</th>
-            <th>Tipo</th>
-            <th>Estatus</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Formulario de Nuevo Operador -->
-    <div class="card">
-      <h2>Nuevo Operador</h2>
-      <input type="text" id="operatorName" placeholder="Nombre">
-      <input type="text" id="operatorRank" placeholder="Rango">
-      <input type="text" id="operatorDept" placeholder="Departamento">
-      <button onclick="addOperator()">Agregar Operador</button>
-    </div>
-
-    <!-- Llamadas Activas -->
-    <div class="card">
-      <h2>Llamadas Activas</h2>
-      <table id="activeCallsTable">
-        <thead>
-          <tr>
-            <th>Llamada</th>
-            <th>Unidades Asignadas</th>
-            <th>Estatus</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+    <!-- Formulario de registro de operador -->
+    <div class="card p-3 mb-4">
+      <h5 class="mb-3">Registrar Nuevo Operador</h5>
+      <form id="form-operador">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Nombre completo" required>
+          </div>
+          <div class="col-md-4">
+            <select class="form-select" required>
+              <option value="">Seleccionar tipo de unidad</option>
+              <option value="ambulancia">Ambulancia</option>
+              <option value="helicoptero">Helicóptero</option>
+              <option value="unidad-terrestre">Unidad Terrestre</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Registrar Operador</button>
+          </div>
+        </div>
+      </form>
     </div>
 
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Datos iniciales
-    const units = [
-      { unit: 'LSPD 1', name: 'John Doe', aop: 'LSPD HQ', location: 'Los Santos', agency: 'LSPD', department: 'Patrulla', subdivision: '-', rank: 'Sargento', status: 'Activo', statusClass: 'green' },
-    ];
+    const form = document.getElementById('form-operador');
+    const tabla = document.getElementById('tabla-unidades');
+    const operadoresActivos = document.getElementById('operadores-activos');
+    const operadoresOffline = document.getElementById('operadores-offline');
+    const llamadasEnCurso = document.getElementById('llamadas-en-curso');
+    const llamadasPendientes = document.getElementById('llamadas-pendientes');
 
-    const groups = [
-      { group: 'Patrulla Norte', members: 3 },
-    ];
+    let totalActivos = 0;
+    let totalOffline = 0;
+    let llamadasActuales = 0;
+    let llamadasPend = 0;
 
-    const emergencies = [
-      { caller: 'Jane Doe', location: 'Vinewood', type: 'Robo', status: 'Pendiente' },
-    ];
-
-    const activeCalls = [
-      { call: 'Robo en Progress', units: 'LSPD 1, LSPD 2', status: 'En progreso' },
-    ];
-
-    // Función para renderizar tablas
-    function renderTable(tableId, data, columns) {
-      const tbody = document.getElementById(tableId).querySelector('tbody');
-      tbody.innerHTML = '';
-      data.forEach(item => {
-        const tr = document.createElement('tr');
-        columns.forEach(col => {
-          const td = document.createElement('td');
-          if(col === 'status' && item.statusClass){
-            const span = document.createElement('span');
-            span.textContent = item[col];
-            span.className = 'badge ' + item.statusClass;
-            td.appendChild(span);
-          } else {
-            td.textContent = item[col];
-          }
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
+    function actualizarContadores() {
+      operadoresActivos.textContent = totalActivos;
+      operadoresOffline.textContent = totalOffline;
+      llamadasEnCurso.textContent = llamadasActuales;
+      llamadasPendientes.textContent = llamadasPend;
     }
 
-    function renderAll() {
-      renderTable('unitsTable', units, ['unit','name','aop','location','agency','department','subdivision','rank','status']);
-      renderTable('groupsTable', groups, ['group','members']);
-      renderTable('emergencyTable', emergencies, ['caller','location','type','status']);
-      renderTable('activeCallsTable', activeCalls, ['call','units','status']);
-    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nombre = form[0].value;
+      const tipo = form[1].value;
 
-    function addOperator() {
-      const name = document.getElementById('operatorName').value;
-      const rank = document.getElementById('operatorRank').value;
-      const dept = document.getElementById('operatorDept').value;
-      if(name && rank && dept){
-        units.push({ unit: `Nuevo ${units.length+1}`, name, aop: '-', location: '-', agency: '-', department: dept, subdivision: '-', rank, status: 'Activo', statusClass: 'green' });
-        document.getElementById('operatorName').value = '';
-        document.getElementById('operatorRank').value = '';
-        document.getElementById('operatorDept').value = '';
-        renderAll();
-      }
-    }
+      // Si es la fila de "No hay operadores", eliminarla
+      const emptyRow = tabla.querySelector('.empty-msg');
+      if (emptyRow) emptyRow.remove();
 
-    // Render inicial
-    renderAll();
+      const nuevaFila = document.createElement('tr');
+      nuevaFila.innerHTML = `
+        <td>${nombre}</td>
+        <td>${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</td>
+        <td><span class="badge status-active">Activo</span></td>
+        <td>Base Central</td>
+      `;
+      tabla.appendChild(nuevaFila);
+
+      totalActivos++;
+      actualizarContadores();
+
+      form.reset();
+      alert('Operador registrado correctamente');
+    });
   </script>
+
 </body>
 </html>
