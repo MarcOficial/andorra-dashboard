@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel Operador 112</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,7 +14,6 @@
     padding: 0;
   }
 
-  /* Navbar superior */
   header nav.navbar {
     background-color: #ffffff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -24,80 +24,79 @@
     font-weight: 500;
   }
 
-  /* Contenedor principal */
   .container-main {
     padding: 20px;
   }
 
-  /* Botón de estado central arriba */
-  .status-button {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  .status-button button {
-    background-color: #26a69a;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-  }
-
-  .status-button button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
-
-  /* Chips estilo Sonoran CAD */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: #26a69a;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    user-select: none;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-    min-width: 150px;
-    margin: 5px;
-  }
-
-  .chip:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
-
-  .chip-content {
+  /* Tarjeta unidad estilo Sonoran CAD */
+  .unit-card {
     display: flex;
     flex-direction: column;
+    background-color: #26a69a;
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .chip-title {
+  .unit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  .unit-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .unit-row span {
     font-weight: bold;
-    font-size: 1rem;
-    line-height: 1.2;
   }
 
-  .chip-subtitle {
-    font-size: 0.75rem;
+  .status-button {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+    text-align: center;
+  }
+
+  .action-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .q-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .q-btn:hover {
     opacity: 0.85;
   }
 
-  /* Mensaje de "no hay llamadas" */
-  .no-calls {
-    text-align: center;
-    font-size: 1rem;
-    color: #666;
-    margin-top: 20px;
+  .bg-amber-10 { background-color: #FFC107; color: #000; }
+  .bg-blue { background-color: #007BFF; color: #fff; }
+
+  .q-btn i {
+    margin-right: 5px;
   }
 
-  /* Sección de llamadas y unidades */
   .section-title {
     font-size: 1.2rem;
     font-weight: bold;
@@ -108,7 +107,6 @@
 </head>
 <body>
 
-<!-- Header / Navbar -->
 <header>
 <nav class="navbar navbar-expand-lg shadow p-3">
   <div class="container-fluid">
@@ -129,126 +127,80 @@
 </nav>
 </header>
 
-<!-- Contenedor principal -->
 <div class="container-main">
 
-  <!-- Botón de estado central -->
-  <div class="status-button">
-    <button id="statusButton">NOT SET</button>
-  </div>
-
-  <!-- Sección de llamadas -->
-  <div class="section-title">Llamadas</div>
-  <div id="callsContainer">
-    <p class="no-calls">No hay llamadas</p>
-  </div>
-
-  <!-- Sección de unidades -->
   <div class="section-title">Unidades</div>
-  <div id="unitsContainer">
-    <p class="no-calls">No hay unidades disponibles</p>
-  </div>
+  <div id="unitsContainer"></div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  const statusButton = document.getElementById('statusButton');
-  let status = 'NOT SET';
-
-  // Estados posibles
-  const statusColors = {
-    'NOT SET': '#26a69a',
-    'AVAILABLE': '#4caf50',
-    'BUSY': '#f44336',
-    'OFF DUTY': '#9e9e9e'
-  };
-
-  // Cambiar estado al hacer clic
-  statusButton.addEventListener('click', () => {
-    if (status === 'NOT SET') status = 'AVAILABLE';
-    else if (status === 'AVAILABLE') status = 'BUSY';
-    else if (status === 'BUSY') status = 'OFF DUTY';
-    else status = 'NOT SET';
-
-    statusButton.textContent = status;
-    statusButton.style.backgroundColor = statusColors[status];
-  });
-
-  const callsContainer = document.getElementById('callsContainer');
   const unitsContainer = document.getElementById('unitsContainer');
 
-  // Función para mostrar llamadas
-  function showCalls(calls) {
-    callsContainer.innerHTML = '';
-    if (calls.length === 0) {
-      const p = document.createElement('p');
-      p.className = 'no-calls';
-      p.textContent = 'No hay llamadas';
-      callsContainer.appendChild(p);
-      return;
-    }
+  // Colores según estatus
+  const statusColors = {
+    'NOT SET': '#26a69a',
+    'DISPONIBLE': '#4caf50',
+    'OCUPADO': '#f44336',
+    'FUERA DE SERVICIO': '#9e9e9e'
+  };
 
-    calls.forEach(call => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.style.backgroundColor = call.color || '#26a69a';
+  // Ejemplo de unidad vacía (sin datos)
+  let unit = {
+    id: '',
+    unitNumber: '',
+    name: '',
+    rank: '',
+    status: 'NOT SET',
+    location: '',
+    emergencies: '',
+    agency: '',
+    department: '',
+    subdivision: ''
+  };
 
-      const content = document.createElement('div');
-      content.className = 'chip-content';
+  function renderUnit(unit) {
+    const card = document.createElement('div');
+    card.className = 'unit-card';
 
-      const title = document.createElement('span');
-      title.className = 'chip-title';
-      title.textContent = call.name;
+    card.innerHTML = `
+      <div class="unit-row"><span>Identificador:</span> <span>${unit.id || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Número de unidad:</span> <span>${unit.unitNumber || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Nombre:</span> <span>${unit.name || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Rango:</span> <span>${unit.rank || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Estatus:</span> 
+        <button class="status-button" id="statusBtn">${unit.status}</button>
+      </div>
+      <div class="unit-row"><span>Ubicación:</span> <span>${unit.location || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Emergencias:</span> <span>${unit.emergencies || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Agencia:</span> <span>${unit.agency || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Departamentos:</span> <span>${unit.department || 'NOT SET'}</span></div>
+      <div class="unit-row"><span>Subdivisiones:</span> <span>${unit.subdivision || 'NOT SET'}</span></div>
 
-      const subtitle = document.createElement('span');
-      subtitle.className = 'chip-subtitle';
-      subtitle.textContent = call.location || 'Central';
+      <div class="action-buttons">
+        <button class="q-btn bg-amber-10" id="saveBtn"><i class="far fa-save"></i> Guardar</button>
+        <button class="q-btn bg-blue" id="changeBtn"><i class="fas fa-exchange-alt"></i> Cambiar identificador</button>
+      </div>
+    `;
 
-      content.appendChild(title);
-      content.appendChild(subtitle);
-      chip.appendChild(content);
-      callsContainer.appendChild(chip);
+    // Configurar botón de estatus
+    const statusBtn = card.querySelector('#statusBtn');
+    statusBtn.style.backgroundColor = statusColors[unit.status];
+    statusBtn.addEventListener('click', () => {
+      const statuses = Object.keys(statusColors);
+      let currentIndex = statuses.indexOf(unit.status);
+      currentIndex = (currentIndex + 1) % statuses.length;
+      unit.status = statuses[currentIndex];
+      statusBtn.textContent = unit.status;
+      statusBtn.style.backgroundColor = statusColors[unit.status];
     });
+
+    unitsContainer.appendChild(card);
   }
 
-  // Función para mostrar unidades
-  function showUnits(units) {
-    unitsContainer.innerHTML = '';
-    if (units.length === 0) {
-      const p = document.createElement('p');
-      p.className = 'no-calls';
-      p.textContent = 'No hay unidades disponibles';
-      unitsContainer.appendChild(p);
-      return;
-    }
-
-    units.forEach(unit => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.style.backgroundColor = unit.color || '#26a69a';
-
-      const content = document.createElement('div');
-      content.className = 'chip-content';
-
-      const title = document.createElement('span');
-      title.className = 'chip-title';
-      title.textContent = unit.name;
-
-      const subtitle = document.createElement('span');
-      subtitle.className = 'chip-subtitle';
-      subtitle.textContent = unit.type;
-
-      content.appendChild(title);
-      content.appendChild(subtitle);
-      chip.appendChild(content);
-      unitsContainer.appendChild(chip);
-    });
-  }
-
-  // Inicialmente vacío
-  showCalls([]);
-  showUnits([]);
+  // Renderizar unidad
+  renderUnit(unit);
 </script>
 
 </body>
