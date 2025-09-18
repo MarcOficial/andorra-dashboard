@@ -40,7 +40,7 @@
       <div class="card option-card text-center shadow-lg h-100">
         <div class="card-body py-4">
           <h4 class="card-title fw-bold mb-3">Mis multas</h4>
-          <p class="card-text mb-4">Mira tus multas.</p>
+          <p class="card-text mb-4">Consulta tus multas.</p>
           <a href="multar.html" class="btn btn-primary btn-lg px-4">Continuar</a>
         </div>
       </div>
@@ -81,7 +81,7 @@
       <div class="card option-card text-center shadow-lg h-100">
         <div class="card-body py-4">
           <h4 class="card-title fw-bold mb-3">Emergencias 112</h4>
-          <p class="card-text mb-4">Envía alertas a Policía, EMS o Bomberos.</p>
+          <p class="card-text mb-4">Selecciona la corporación y describe lo sucedido.</p>
           <button class="btn btn-danger btn-lg px-4" data-bs-toggle="modal" data-bs-target="#alertaModal">112</button>
         </div>
       </div>
@@ -95,16 +95,19 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Enviar Alerta</h5>
+        <h5 class="modal-title">Enviar Alerta 112</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center">
-        <p>Selecciona el servicio al que deseas alertar:</p>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" onclick="enviarAlerta('Policía')">Policía</button>
-          <button class="btn btn-success" onclick="enviarAlerta('EMS')">EMS</button>
-          <button class="btn btn-danger" onclick="enviarAlerta('Bomberos')">Bomberos</button>
-        </div>
+        <p>Selecciona la corporación a la que deseas avisar:</p>
+        <select id="corporacionSelect" class="form-select mb-3">
+          <option value="CNP">CNP (Policía Nacional)</option>
+          <option value="GC">GC (Guardia Civil)</option>
+          <option value="Bomberos">Bomberos</option>
+          <option value="SAMU">SAMU (Emergencias Médicas)</option>
+        </select>
+        <textarea id="descripcion" class="form-control mb-3" rows="3" placeholder="Describe lo sucedido"></textarea>
+        <button class="btn btn-danger w-100" onclick="enviarAlerta()">Enviar Alerta</button>
       </div>
     </div>
   </div>
@@ -120,10 +123,23 @@ function aplicarModo(){
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
 aplicarModo();
 
-function enviarAlerta(servicio){
-  alert(`¡Alerta enviada al servicio de ${servicio}!`);
+function enviarAlerta(){
+  const corporacion = document.getElementById('corporacionSelect').value;
+  const descripcion = document.getElementById('descripcion').value.trim();
+
+  if(descripcion === ""){
+    alert("Por favor, describe lo sucedido antes de enviar la alerta.");
+    return;
+  }
+
+  alert(`Alerta enviada a ${corporacion}:\n\nDescripción: ${descripcion}`);
+
+  // Cierra el modal automáticamente
   const modal = bootstrap.Modal.getInstance(document.getElementById('alertaModal'));
   modal.hide();
+
+  // Limpiar textarea
+  document.getElementById('descripcion').value = "";
 }
 </script>
 </body>
