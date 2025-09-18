@@ -1,126 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Operador 112 - Mini CAD</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-  .mini-cad { height: 80vh; position: relative; }
-  .mini-cad .left, .mini-cad .right { overflow-y: auto; height: 100%; }
-  .section { margin-bottom: 1rem; }
-  .section h5 { border-bottom: 1px solid #ccc; padding-bottom: 0.25rem; margin-bottom: 0.5rem; }
-  .unit-card { border-left: 5px solid green; margin-bottom: .5rem; }
-  .unit-status { font-size: 0.85rem; font-weight: bold; }
-  .registros-panel {
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 50%;
-    background: #f8f9fa;
-    border-top: 2px solid #ccc;
-    display: none;
-    z-index: 10;
-    overflow-y: auto;
-  }
-</style>
-</head>
-<body>
-<header>
-<nav class="navbar navbar-expand-lg shadow p-3">
-  <div class="container-fluid d-flex justify-content-between">
-    <a class="navbar-brand fw-bold fs-4" href="dashboard.html">⛰️ Spanish City RP</a>
-    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#unidadModal">NOT SET</button>
-  </div>
-</nav>
-</header>
-
-<div class="container my-4">
-  <h1 class="text-center mb-4">Panel Operador 112 - Mini CAD</h1>
-  <div class="row mini-cad shadow-lg rounded">
-
-    <!-- Columna izquierda -->
-    <div class="col-md-6 border-end left p-3">
-      
-      <div class="section">
-        <h5>Unidades activas</h5>
-        <div id="unidadesActivas"></div>
-      </div>
-
-      <div class="section">
-        <h5>Grupo de unidades</h5>
-        <ul id="grupoUnidades" class="list-group list-group-flush"></ul>
-      </div>
-
-      <div class="section">
-        <h5>Llamadas activas</h5>
-        <ul id="llamadasActivas" class="list-group list-group-flush"></ul>
-      </div>
-
-      <!-- Botón Registros -->
-      <div class="position-absolute bottom-0 start-0 mb-3 ms-3">
-        <button class="btn btn-primary btn-sm" id="toggleRegistros">📑 Registros</button>
-      </div>
-    </div>
-
-    <!-- Columna derecha -->
-    <div class="col-md-6 right p-3">
-      <div class="section">
-        <h5>Nuevo Operador</h5>
-        <input type="text" id="nuevoOperador" class="form-control mb-2" placeholder="Nombre operador">
-        <button class="btn btn-success w-100" id="crearOperador">Crear Operador</button>
-      </div>
-
-      <div class="section">
-        <h5>Unidades / Llamadas</h5>
-        <table class="table table-sm table-bordered">
-          <thead class="table-light">
-            <tr>
-              <th>Prioridad</th>
-              <th>Dirección Postal</th>
-              <th>Título</th>
-              <th>Código</th>
-              <th>Unidad</th>
-              <th>Descripción</th>
-            </tr>
-          </thead>
-          <tbody id="tablaUnidades"></tbody>
-        </table>
-      </div>
-
-      <div class="section">
-        <h5>Llamadas activas & Historial</h5>
-        <ul id="historialLlamadas" class="list-group list-group-flush"></ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Panel Registros oculto -->
-  <div class="registros-panel p-3 shadow-lg" id="panelRegistros">
-    <ul class="nav nav-tabs" id="registrosTabs" role="tablist">
-      <li class="nav-item"><a class="nav-link active" id="archivos-tab" data-bs-toggle="tab" href="#archivos" role="tab">Mis Archivos</a></li>
-      <li class="nav-item"><a class="nav-link" id="reportes-tab" data-bs-toggle="tab" href="#reportes" role="tab">Reportes (0)</a></li>
-      <li class="nav-item"><a class="nav-link" id="registros-tab" data-bs-toggle="tab" href="#registros" role="tab">Registros (0)</a></li>
-      <li class="nav-item"><a class="nav-link" id="supervisor-tab" data-bs-toggle="tab" href="#supervisor" role="tab">Panel Supervisor</a></li>
-    </ul>
-    <div class="tab-content mt-3">
-      <div class="tab-pane fade show active" id="archivos" role="tabpanel">
-        <input type="text" class="form-control mb-2" placeholder="Buscar archivo...">
-        <button class="btn btn-primary btn-sm mb-2">Nuevo Informe</button>
-        <button class="btn btn-secondary btn-sm mb-2">Nuevo Registro</button>
-      </div>
-      <div class="tab-pane fade" id="reportes" role="tabpanel">
-        <p>No hay reportes pendientes.</p>
-      </div>
-      <div class="tab-pane fade" id="registros" role="tabpanel">
-        <p>No hay registros creados.</p>
-      </div>
-      <div class="tab-pane fade" id="supervisor" role="tabpanel">
-        <p>Acceso a supervisión y control de operadores.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Modal NOT SET -->
 <div class="modal fade" id="unidadModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -159,13 +36,30 @@
             <label class="form-label">AOP</label>
             <input type="text" class="form-control" id="aopUnidad">
           </div>
-          <div class="col-md-6">
+
+          <!-- Menús dependientes -->
+          <div class="col-md-4">
             <label class="form-label">Agencia</label>
-            <input type="text" class="form-control" id="agenciaUnidad">
+            <select class="form-select" id="agenciaUnidad">
+              <option value="">Seleccionar...</option>
+              <option value="policia">Policía</option>
+              <option value="bomberos">Bomberos</option>
+              <option value="samu">SAMU</option>
+            </select>
           </div>
-          <div class="col-md-6">
+
+          <div class="col-md-4">
             <label class="form-label">Departamento</label>
-            <input type="text" class="form-control" id="departamentoUnidad">
+            <select class="form-select" id="departamentoUnidad" disabled>
+              <option value="">Seleccionar agencia primero...</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Subdivisión</label>
+            <select class="form-select" id="subdivisionUnidad" disabled>
+              <option value="">Seleccionar departamento primero...</option>
+            </select>
           </div>
         </form>
       </div>
@@ -177,62 +71,67 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Datos de prueba
-let unidadesActivas = [
-  {id:"B1", nombre:"Bomberos 1", estatus:"DISPONIBLE"},
-  {id:"CNP3", nombre:"Policía 3", estatus:"OCUPADO"},
-  {id:"SAMU2", nombre:"Ambulancia 2", estatus:"DISPONIBLE"}
-];
-let grupoUnidades = ["Grupo A", "Grupo B"];
-let llamadasActivas = [{titulo:"Incendio", unidad:"Bomberos", descripcion:"Fuego en edificio"}];
-let historial = [{titulo:"Robo", unidad:"CNP", descripcion:"Robo en tienda"}];
+// Datos de dependencias
+const opciones = {
+  policia: {
+    "Guardia Civil": ["Tráfico", "Rural", "Seguridad Ciudadana"],
+    "Policía Nacional": ["UIP", "UPR", "Policía Judicial"]
+  },
+  bomberos: {
+    "Bomberos Urbanos": ["Rescate", "Incendios", "Prevención"],
+    "Bomberos Forestales": ["Extinción", "Emergencias forestales"]
+  },
+  samu: {
+    "SAMU Básico": ["Ambulancia básica", "Soporte vital básico"],
+    "SAMU Avanzado": ["UVI Móvil", "Emergencias críticas"]
+  }
+};
 
-function actualizarMiniCAD(){
-  // Unidades activas tipo Sonoran
-  document.getElementById("unidadesActivas").innerHTML = unidadesActivas.map(u=>{
-    let color = (u.estatus==="DISPONIBLE") ? "success" : (u.estatus==="OCUPADO") ? "danger" : "secondary";
-    return `<div class="card unit-card border-${color}">
-              <div class="card-body py-2 px-3 d-flex justify-content-between align-items-center">
-                <span><b>${u.id}</b> - ${u.nombre}</span>
-                <span class="unit-status text-${color}">${u.estatus}</span>
-              </div>
-            </div>`;
-  }).join("");
-  
-  // Grupos
-  document.getElementById("grupoUnidades").innerHTML = grupoUnidades.map(g=>`<li class="list-group-item">${g}</li>`).join("");
-  
-  // Llamadas activas
-  document.getElementById("llamadasActivas").innerHTML = llamadasActivas.map(l=>`<li class="list-group-item">${l.titulo} - ${l.unidad}</li>`).join("");
-  
-  // Tabla unidades
-  document.getElementById("tablaUnidades").innerHTML = llamadasActivas.map(l=>`
-    <tr>
-      <td>Alta</td><td>12345</td><td>${l.titulo}</td><td>001</td><td>${l.unidad}</td><td>${l.descripcion}</td>
-    </tr>`).join("");
-  
-  // Historial
-  document.getElementById("historialLlamadas").innerHTML = historial.map(h=>`<li class="list-group-item">${h.titulo} - ${h.unidad}</li>`).join("");
-}
-actualizarMiniCAD();
+const agenciaSelect = document.getElementById("agenciaUnidad");
+const departamentoSelect = document.getElementById("departamentoUnidad");
+const subdivisionSelect = document.getElementById("subdivisionUnidad");
 
-// Toggle del panel registros
-document.getElementById("toggleRegistros").addEventListener("click",()=>{
-  const panel = document.getElementById("panelRegistros");
-  panel.style.display = (panel.style.display === "block") ? "none" : "block";
+// Cuando cambie la agencia
+agenciaSelect.addEventListener("change", () => {
+  const agencia = agenciaSelect.value;
+  departamentoSelect.innerHTML = "";
+  subdivisionSelect.innerHTML = "<option value=''>Seleccionar departamento primero...</option>";
+  subdivisionSelect.disabled = true;
+
+  if (agencia && opciones[agencia]) {
+    departamentoSelect.disabled = false;
+    departamentoSelect.innerHTML = "<option value=''>Seleccionar...</option>";
+    Object.keys(opciones[agencia]).forEach(dep => {
+      let opt = document.createElement("option");
+      opt.value = dep;
+      opt.textContent = dep;
+      departamentoSelect.appendChild(opt);
+    });
+  } else {
+    departamentoSelect.disabled = true;
+    departamentoSelect.innerHTML = "<option value=''>Seleccionar agencia primero...</option>";
+  }
 });
 
-// Guardar unidad desde modal
-document.getElementById("guardarUnidad").addEventListener("click",()=>{
-  let id = document.getElementById("numeroUnidad").value || "SIN ID";
-  let nombre = document.getElementById("nombreUnidad").value || "Sin nombre";
-  let estatus = document.getElementById("estatusUnidad").value;
-  unidadesActivas.push({id,nombre,estatus});
-  actualizarMiniCAD();
-  bootstrap.Modal.getInstance(document.getElementById("unidadModal")).hide();
+// Cuando cambie el departamento
+departamentoSelect.addEventListener("change", () => {
+  const agencia = agenciaSelect.value;
+  const depto = departamentoSelect.value;
+  subdivisionSelect.innerHTML = "";
+
+  if (agencia && depto && opciones[agencia][depto]) {
+    subdivisionSelect.disabled = false;
+    subdivisionSelect.innerHTML = "<option value=''>Seleccionar...</option>";
+    opciones[agencia][depto].forEach(sub => {
+      let opt = document.createElement("option");
+      opt.value = sub;
+      opt.textContent = sub;
+      subdivisionSelect.appendChild(opt);
+    });
+  } else {
+    subdivisionSelect.disabled = true;
+    subdivisionSelect.innerHTML = "<option value=''>Seleccionar departamento primero...</option>";
+  }
 });
 </script>
-</body>
-</html>
