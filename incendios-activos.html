@@ -3,38 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Incendios Activos - Bomberos</title>
+<title>Incendios Activos - Spanish City RP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+<nav class="navbar navbar-expand-lg shadow p-3">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4" href="dashboard">⛰️ Spanish City RP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="carpeta-ciudadana">Carpeta Ciudadana</a></li>
+        <li class="nav-item"><a class="nav-link" href="panel-bomberos.html">Panel Bomberos</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
 <div class="container my-5">
-    <h1 class="text-center mb-4">Incendios Activos</h1>
-    <table class="table table-hover">
-        <thead class="table-danger">
-            <tr>
-                <th>#</th>
-                <th>Ubicación</th>
-                <th>Estado</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Calle Mayor 12</td>
-                <td>Activo</td>
-                <td><button class="btn btn-danger btn-sm">Atender</button></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Avenida Central 34</td>
-                <td>Controlado</td>
-                <td><button class="btn btn-secondary btn-sm" disabled>Atendido</button></td>
-            </tr>
-        </tbody>
-    </table>
+  <div class="text-center mb-5">
+    <h1>Incendios Activos</h1>
+    <h5 class="text-muted">Lista de incendios que requieren atención</h5>
+  </div>
+
+  <div id="incendiosContainer" class="row g-4 justify-content-center"></div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Obtener incendios de localStorage
+let incendios = JSON.parse(localStorage.getItem('incendios')) || [];
+
+const container = document.getElementById('incendiosContainer');
+
+function mostrarIncendios() {
+  container.innerHTML = '';
+  const bomberos = incendios.filter(i => i.corporacion === 'Bomberos');
+
+  if(bomberos.length === 0){
+    container.innerHTML = `<div class="col-12 text-center">
+      <p class="fw-semibold fs-5 text-muted">No hay incendios activos</p>
+    </div>`;
+    return;
+  }
+
+  bomberos.forEach(i => {
+    const card = document.createElement('div');
+    card.className = 'col-12 col-md-6';
+    card.innerHTML = `
+      <div class="card shadow-lg h-100">
+        <div class="card-body">
+          <h4 class="card-title fw-bold">${i.titulo}</h4>
+          <p class="card-text">Estado: <span class="fw-semibold text-danger">Activo</span></p>
+          <p class="card-text">Reportado por: ${i.reportadoPor}</p>
+          <p class="card-text">Descripción: ${i.descripcion}</p>
+          <a href="#" class="btn btn-danger w-100">Responder</a>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+mostrarIncendios();
+
+// Modo oscuro
+function aplicarModo(){
+  if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.body.classList.add('modo-oscuro');
+  } else {
+    document.body.classList.remove('modo-oscuro');
+  }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarModo);
+aplicarModo();
+</script>
 </body>
 </html>
